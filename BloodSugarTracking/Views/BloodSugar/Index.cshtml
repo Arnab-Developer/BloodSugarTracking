@@ -1,0 +1,39 @@
+﻿@using BloodSugarTracking.Models
+@model IEnumerable<BloodSugarTestResult>
+@{
+    ViewData["Title"] = "Blood sugar results";
+}
+<h1>Blood sugar results</h1>
+<p>
+    <a asp-controller="BloodSugar" asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.MealTime)</th>
+            <th>@Html.DisplayNameFor(model => model.TestTime)</th>
+            <th>@Html.DisplayNameFor(model => model.Result)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var bloodSugarTestResult in Model)
+        {
+            <tr>
+                <td>@bloodSugarTestResult.MealTime</td>
+                <td>
+                    @bloodSugarTestResult.TestTime (@bloodSugarTestResult.TimeDurationAfterLastMeal)
+                </td>
+                <td>
+                    @if (bloodSugarTestResult.IsHigh((int)ViewData["FastingNormal"], (int)ViewData["TwoHoursNormal"]))
+                    {
+                        <span style="color: red">@bloodSugarTestResult.Result</span>
+                    }
+                    else
+                    {
+                        @bloodSugarTestResult.Result
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

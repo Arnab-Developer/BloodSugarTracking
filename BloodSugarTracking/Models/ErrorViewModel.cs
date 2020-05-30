@@ -1,5 +1,3 @@
-using System;
-
 namespace BloodSugarTracking.Models
 {
     public class ErrorViewModel

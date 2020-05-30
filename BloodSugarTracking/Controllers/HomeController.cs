@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using BloodSugarTracking.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using BloodSugarTracking.Models;
+using System.Diagnostics;
 
 namespace BloodSugarTracking.Controllers
 {
