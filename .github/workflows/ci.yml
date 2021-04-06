@@ -20,5 +20,5 @@ jobs:
       with:
         dotnet-version: 5.0.101
     
-    - name: Build
-      run: dotnet build --configuration Release
+    - name: Test
+      run: dotnet test --configuration Release
