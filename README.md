@@ -41,6 +41,19 @@ else
 }
 ```
 
+The normal range of blood sugar is mentioned in the appsettings.json file.
+
+```json
+{
+  // more code...
+  
+  "FastingNormal": 100,
+  "TwoHoursNormal": 140,
+  
+  // more code...
+}
+```
+
 ![image](https://user-images.githubusercontent.com/3396447/113700018-f1a0d200-96f3-11eb-85e2-6f6a7eb72523.png)
 
 ## Limitation
