@@ -1,8 +1,6 @@
 # Blood sugar tracking app
 
-ASP.NET 5 mvc app with EF to enter and show blood sugar data for 
-fasting and PP. User can enter blood sugar data and see the already 
-added data in this app.
+User can enter blood sugar data for fasting and PP and see the already added data in this app.
 
 Add blood sugar data
 
@@ -11,6 +9,8 @@ Add blood sugar data
 See existing blood sugar data
 
 ![image](https://user-images.githubusercontent.com/3396447/113703098-fc5d6600-96f7-11eb-9787-f8101220117f.png)
+
+It is an ASP.NET 5 mvc app with EF to enter and show blood sugar data for fasting and PP. 
 
 ```c#
 // Show existing blood sugar data
