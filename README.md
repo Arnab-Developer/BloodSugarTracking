@@ -65,3 +65,7 @@ The normal range of blood sugar is mentioned in the appsettings.json file.
 ## Limitation
 
 Currently no update or delete functionality is present.
+
+## Contributing
+
+Read about contributing related things [here](https://github.com/Arnab-Developer/BloodSugarTracking/blob/main/CONTRIBUTING.md).
