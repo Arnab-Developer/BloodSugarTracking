@@ -19,7 +19,7 @@ CREATE DATABASE [BloodSugarDb]
 ON PRIMARY
 ( 
     NAME = N'BloodSugarDb', 
-    FILENAME = N'D:\chowba\BloodSugarDb.mdf' , 
+    FILENAME = N'[local path]\BloodSugarDb.mdf' , 
     SIZE = 8192KB , 
     MAXSIZE = UNLIMITED, 
     FILEGROWTH = 65536KB 
@@ -27,7 +27,7 @@ ON PRIMARY
 LOG ON 
 ( 
     NAME = N'BloodSugarDb_log', 
-    FILENAME = N'D:\chowba\BloodSugarDb.ldf' , 
+    FILENAME = N'[local path]\BloodSugarDb.ldf' , 
     SIZE = 8192KB , 
     MAXSIZE = 2048GB , 
     FILEGROWTH = 65536KB 
