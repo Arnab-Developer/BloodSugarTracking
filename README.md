@@ -1,7 +1,14 @@
 # Blood sugar tracking app
 
 ASP.NET 5 mvc app with EF to enter and show blood sugar data for 
-fasting and PP.
+fasting and PP. User can enter blood sugar data and see the already 
+added data in this app.
+
+Add blood sugar data
+![image](https://user-images.githubusercontent.com/3396447/113702889-be604200-96f7-11eb-9753-2245c65f8f52.png)
+
+See existing blood sugar data
+![image](https://user-images.githubusercontent.com/3396447/113703098-fc5d6600-96f7-11eb-9787-f8101220117f.png)
 
 ```c#
 // Show existing blood sugar data
@@ -51,9 +58,6 @@ The normal range of blood sugar is mentioned in the appsettings.json file.
   "TwoHoursNormal": 140,
 }
 ```
-## Screenshot
-
-![image](https://user-images.githubusercontent.com/3396447/113700018-f1a0d200-96f3-11eb-85e2-6f6a7eb72523.png)
 
 ## Limitation
 
