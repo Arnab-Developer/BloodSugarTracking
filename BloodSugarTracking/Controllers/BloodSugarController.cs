@@ -45,19 +45,19 @@ namespace BloodSugarTracking.Controllers
             {
                 return View();
             }
-            _bloodSugarContext.BloodSugarTestResults!.Add(bloodSugarTestResult);
+            await _bloodSugarContext.BloodSugarTestResults!.AddAsync(bloodSugarTestResult);
             await _bloodSugarContext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var bloodSugarTestResult = _bloodSugarContext.BloodSugarTestResults!.Find(id);
+            var bloodSugarTestResult = await _bloodSugarContext.BloodSugarTestResults!.FindAsync(id);
             if (bloodSugarTestResult == null)
             {
                 return NotFound();
@@ -67,7 +67,7 @@ namespace BloodSugarTracking.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, BloodSugarTestResult bloodSugarTestResult)
+        public async Task<ActionResult> Edit(int id, BloodSugarTestResult bloodSugarTestResult)
         {
             if (id != bloodSugarTestResult.Id)
             {
@@ -79,7 +79,7 @@ namespace BloodSugarTracking.Controllers
                 try
                 {
                     _bloodSugarContext.BloodSugarTestResults!.Update(bloodSugarTestResult);
-                    _bloodSugarContext.SaveChanges();
+                    await _bloodSugarContext.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -97,30 +97,30 @@ namespace BloodSugarTracking.Controllers
             return View(bloodSugarTestResult);
         }
 
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var student = _bloodSugarContext.BloodSugarTestResults!
+            var bloodSugarTestResult = await _bloodSugarContext.BloodSugarTestResults!
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (student == null)
+            if (bloodSugarTestResult == null)
             {
                 return NotFound();
             }
 
-            return View(student);
+            return View(bloodSugarTestResult);
         }
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var student = _bloodSugarContext.BloodSugarTestResults!.Find(id);
-            _bloodSugarContext.BloodSugarTestResults!.Remove(student);
-            _bloodSugarContext.SaveChangesAsync();
+            var bloodSugarTestResult = await _bloodSugarContext.BloodSugarTestResults!.FindAsync(id);
+            _bloodSugarContext.BloodSugarTestResults!.Remove(bloodSugarTestResult);
+            await _bloodSugarContext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
