@@ -1,23 +1,23 @@
 using BloodSugarTracking.Controllers;
 using BloodSugarTracking.Data;
 using BloodSugarTracking.Models;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Linq;
-using Xunit;
-using Moq;
-using Microsoft.Extensions.Options;
 using BloodSugarTracking.Options;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using Moq;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Xunit;
 
 namespace BloodSugarTrackingTest
 {
     public class BloodSugarControllerTest
     {
         [Fact]
-        public void Can_Index_WorkProperly()
+        public void Is_Index_WorkProperly()
         {
             var options = new DbContextOptionsBuilder<BloodSugarContext>()
                 .UseInMemoryDatabase("BloodSugarTestDb")
@@ -43,7 +43,7 @@ namespace BloodSugarTrackingTest
                 BloodSugarController bloodSugarController = new(bloodSugarTestContext, mock.Object);
 
                 ViewResult? viewResult = bloodSugarController.Index() as ViewResult;
-                
+
                 Assert.NotNull(viewResult);
                 Assert.NotNull(viewResult!.Model);
 
@@ -59,7 +59,7 @@ namespace BloodSugarTrackingTest
         }
 
         [Fact]
-        public async Task Can_Create_WorkProperly()
+        public async Task Is_Create_WorkProperly()
         {
             var options = new DbContextOptionsBuilder<BloodSugarContext>()
                 .UseInMemoryDatabase("BloodSugarTestDb")
@@ -97,7 +97,7 @@ namespace BloodSugarTrackingTest
         }
 
         [Fact]
-        public async Task Can_Edit_WorkProperly()
+        public async Task Is_Edit_WorkProperly()
         {
             var options = new DbContextOptionsBuilder<BloodSugarContext>()
                 .UseInMemoryDatabase("BloodSugarTestDb")
@@ -116,7 +116,7 @@ namespace BloodSugarTrackingTest
             }
 
             using (BloodSugarContext bloodSugarSetupContext1 = new(options))
-            { 
+            {
                 Mock<IOptionsMonitor<BloodSugarOptions>> mock = new();
                 mock.Setup(s => s.CurrentValue)
                     .Returns(new BloodSugarOptions() { FastingNormal = 100, TwoHoursNormal = 140 });
@@ -148,7 +148,7 @@ namespace BloodSugarTrackingTest
         }
 
         [Fact]
-        public async Task Can_Delete_WorkProperly()
+        public async Task Is_Delete_WorkProperly()
         {
             var options = new DbContextOptionsBuilder<BloodSugarContext>()
                 .UseInMemoryDatabase("BloodSugarTestDb")
