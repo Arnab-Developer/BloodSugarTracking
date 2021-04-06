@@ -66,7 +66,7 @@ The normal range of blood sugar is mentioned in the appsettings.json file.
 
 ## Docker image
 
-This app is in a docker container and stored in dockerhub.
+This app is in a docker image and stored in dockerhub.
 
 https://hub.docker.com/r/45862391/bloodsugartracking
 
