@@ -5,9 +5,11 @@ fasting and PP. User can enter blood sugar data and see the already
 added data in this app.
 
 Add blood sugar data
+
 ![image](https://user-images.githubusercontent.com/3396447/113702889-be604200-96f7-11eb-9753-2245c65f8f52.png)
 
 See existing blood sugar data
+
 ![image](https://user-images.githubusercontent.com/3396447/113703098-fc5d6600-96f7-11eb-9787-f8101220117f.png)
 
 ```c#
