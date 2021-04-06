@@ -1,4 +1,5 @@
 # Blood sugar tracking app
+[![CI](https://github.com/Arnab-Developer/BloodSugarTracking/actions/workflows/ci.yml/badge.svg)](https://github.com/Arnab-Developer/BloodSugarTracking/actions/workflows/ci.yml)
 
 User can enter blood sugar data for fasting and PP and see the already added data in this app.
 
