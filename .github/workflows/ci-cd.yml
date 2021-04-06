@@ -25,3 +25,29 @@ jobs:
 
     - name: Test
       run: dotnet test --configuration Release
+
+  github-package-deploy:
+    #if: ${{ github.event_name == 'push' }}
+    runs-on: ubuntu-latest
+    name: Build and test
+    needs: build-test
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Setup
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.101
+        
+    - name: Publish
+      run: dotnet publish BloodSugarTracking/BloodSugarTracking.csproj --configuration Release -o BloodSugarTracking/bin/publish
+
+    - name: Create docker image
+      run: docker build -f BloodSugarTracking/Dockerfile -t docker.pkg.github.com/arnab-developer/bloodsugartracking/bloodsugartracking:1.0.0 .
+
+    - name: Push docker image
+      run: |
+        echo "${{ secrets.GITHUB_TOKEN }}" | docker login https://docker.pkg.github.com -u Arnab-Developer --password-stdin
+        docker push docker.pkg.github.com/arnab-developer/bloodsugartracking/bloodsugartracking:1.0.0
