@@ -45,12 +45,8 @@ The normal range of blood sugar is mentioned in the appsettings.json file.
 
 ```json
 {
-  // more code...
-  
   "FastingNormal": 100,
   "TwoHoursNormal": 140,
-  
-  // more code...
 }
 ```
 
