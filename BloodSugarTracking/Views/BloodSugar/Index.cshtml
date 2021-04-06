@@ -13,6 +13,7 @@
             <th>@Html.DisplayNameFor(model => model.MealTime)</th>
             <th>@Html.DisplayNameFor(model => model.TestTime)</th>
             <th>@Html.DisplayNameFor(model => model.Result)</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -32,6 +33,9 @@
                     {
                         @bloodSugarTestResult.Result
                     }
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@bloodSugarTestResult.Id">Edit</a>
                 </td>
             </tr>
         }
