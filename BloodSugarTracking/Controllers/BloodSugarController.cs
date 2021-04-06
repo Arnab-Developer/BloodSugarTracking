@@ -25,7 +25,8 @@ namespace BloodSugarTracking.Controllers
         public IActionResult Index()
         {
             var bloodSugarTestResults = _bloodSugarContext.BloodSugarTestResults!
-                .OrderBy(bloodSugarTestResult => bloodSugarTestResult.TestTime);
+                .OrderBy(bloodSugarTestResult => bloodSugarTestResult.TestTime)
+                .ToList();
 
             ViewData["FastingNormal"] = _bloodSugarOptions.FastingNormal;
             ViewData["TwoHoursNormal"] = _bloodSugarOptions.TwoHoursNormal;

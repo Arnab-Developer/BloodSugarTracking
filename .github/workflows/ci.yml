@@ -7,9 +7,9 @@ on:
     branches: [ main ]
     
 jobs:
-  build:
+  build-test:
     runs-on: ubuntu-latest
-    name: Build
+    name: Build and test
     
     steps:
     - name: Checkout
@@ -21,4 +21,7 @@ jobs:
         dotnet-version: 5.0.101
     
     - name: Build
-      run: dotnet build --configuration Release
+      run: dotnet build --configuration Release 
+
+    - name: Test
+      run: dotnet test --configuration Release
