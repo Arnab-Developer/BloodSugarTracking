@@ -1,6 +1,7 @@
 # Blood sugar tracking app
 
 [![CI CD](https://github.com/Arnab-Developer/BloodSugarTracking/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/Arnab-Developer/BloodSugarTracking/actions/workflows/ci-cd.yml)
+![Docker Image Version (latest by date)](https://img.shields.io/docker/v/45862391/bloodsugartracking)
 
 User can enter blood sugar data for fasting and PP and see the already added data in this app.
 
@@ -62,6 +63,12 @@ The normal range of blood sugar is mentioned in the appsettings.json file.
   "TwoHoursNormal": 140,
 }
 ```
+
+## Docker image
+
+This app is in a docker image and stored in dockerhub.
+
+https://hub.docker.com/r/45862391/bloodsugartracking
 
 ## Contributing
 
