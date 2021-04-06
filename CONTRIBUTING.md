@@ -9,7 +9,7 @@ You need Visual Studio 2019, ASP.NET 5, EF and SQL Server 2016 to work on this p
 on something else then create a new issue to let me know the details.
 - If your issue is approved then fork the repo and create a new branch from `main`.
 - Clone the forked repo and set the upstream to the original repo `main` branch.
-- Create the databases and tables with the below script.
+- Create the databases with the below script.
 
 ```sql
 USE [master]
