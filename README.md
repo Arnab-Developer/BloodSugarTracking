@@ -40,3 +40,5 @@ else
     @bloodSugarTestResult.Result
 }
 ```
+
+Currently no update or delete functionality is present.
