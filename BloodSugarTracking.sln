@@ -5,7 +5,18 @@ VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BloodSugarTracking", "BloodSugarTracking\BloodSugarTracking.csproj", "{01D46D4A-E63D-4D7B-8E2A-095F5BE934EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BloodSugarTrackingTest", "BloodSugarTrackingTest\BloodSugarTrackingTest.csproj", "{2DC0DC4B-B67D-4B71-8E1A-05230FA820D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BloodSugarTrackingTest", "BloodSugarTrackingTest\BloodSugarTrackingTest.csproj", "{2DC0DC4B-B67D-4B71-8E1A-05230FA820D7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9975D714-53BC-4C4C-B594-5DD3C043AB45}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		.github\workflows\ci-cd.yml = .github\workflows\ci-cd.yml
+		CODE_OF_CONDUCT.md = CODE_OF_CONDUCT.md
+		CONTRIBUTING.md = CONTRIBUTING.md
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
