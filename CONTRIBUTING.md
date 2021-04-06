@@ -3,8 +3,8 @@ issue to work on. Let me know on which issue you are going to work before
 raising a pull request.
 
 You need Visual Studio 2019, ASP.NET Core 3.1 and SQL Server to work on this app.
-Create database `BloodSugarDb` and table `BloodSugarTestResults` locally to start 
-working as per the below model.
+Create database `BloodSugarDb` and table `BloodSugarTestResults` locally as per 
+the below model to start working.
 
 ```c#
 public class BloodSugarTestResult
