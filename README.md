@@ -4,6 +4,7 @@ ASP.NET 5 mvc app with EF to enter and show blood sugar data for
 fasting and PP.
 
 ```c#
+// Show existing blood sugar data
 public IActionResult Index()
 {
     var bloodSugarTestResults = _bloodSugarContext.BloodSugarTestResults
@@ -15,6 +16,7 @@ public IActionResult Index()
     return View(bloodSugarTestResults);
 }
 
+// Create new blood sugar data
 [HttpPost]
 public async Task<IActionResult> Create(BloodSugarTestResult bloodSugarTestResult)
 {
