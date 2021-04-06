@@ -1,6 +1,6 @@
 # Blood sugar tracking app
 
-ASP.NET core mvc app with EF core to enter and show blood sugar data for 
+ASP.NET 5 mvc app with EF to enter and show blood sugar data for 
 fasting and PP.
 
 ```c#
