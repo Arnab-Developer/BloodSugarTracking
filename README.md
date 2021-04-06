@@ -30,7 +30,7 @@ public async Task<IActionResult> Create(BloodSugarTestResult bloodSugarTestResul
 }
 ```
 
-If the sugar data is up from normal then it shows the data as red.
+If the blood sugar data is up from normal then it shows the data as red.
 
 ```c#
 @if (bloodSugarTestResult.IsHigh((int)ViewData["FastingNormal"], (int)ViewData["TwoHoursNormal"]))
