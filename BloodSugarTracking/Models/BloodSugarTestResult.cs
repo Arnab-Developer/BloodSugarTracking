@@ -1,6 +1,4 @@
-﻿using BloodSugarTracking.Options;
-using Microsoft.Extensions.Options;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace BloodSugarTracking.Models
