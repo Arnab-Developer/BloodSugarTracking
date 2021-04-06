@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace BloodSugarTracking.Options
+﻿namespace BloodSugarTracking.Options
 {
     public class BloodSugarOptions
     {
