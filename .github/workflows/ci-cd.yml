@@ -26,10 +26,10 @@ jobs:
     - name: Test
       run: dotnet test --configuration Release
 
-  github-package-deploy:
+  github-package-docker-push:
     #if: ${{ github.event_name == 'push' }}
     runs-on: ubuntu-latest
-    name: Build and test
+    name: GitHub package docker push
     needs: build-test
 
     steps:
