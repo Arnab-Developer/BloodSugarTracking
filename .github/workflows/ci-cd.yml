@@ -5,6 +5,8 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  release:
+    types: [created]
     
 jobs:
   build-test:
@@ -53,7 +55,7 @@ jobs:
         docker push docker.pkg.github.com/arnab-developer/bloodsugartracking/bloodsugartracking:1.0.0
 
   dockerhub-push:
-    #if: ${{ github.event_name == 'release' }}
+    if: ${{ github.event_name == 'release' }}
     runs-on: ubuntu-latest
     name: Dockerhub push
     needs: build-test
