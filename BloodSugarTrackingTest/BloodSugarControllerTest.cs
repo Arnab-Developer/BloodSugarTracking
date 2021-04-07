@@ -148,6 +148,37 @@ namespace BloodSugarTrackingTest
         }
 
         [Fact]
+        public async Task Is_Edit_DontUpdateIfDataNotFound()
+        {
+            var options = new DbContextOptionsBuilder<BloodSugarContext>()
+                .UseInMemoryDatabase("BloodSugarTestDb")
+                .Options;
+
+            using (BloodSugarContext bloodSugarTestContext = new(options))
+            {
+                Mock<IOptionsMonitor<BloodSugarOptions>> mock = new();
+                mock.Setup(s => s.CurrentValue)
+                    .Returns(new BloodSugarOptions() { FastingNormal = 100, TwoHoursNormal = 140 });
+                BloodSugarController bloodSugarController = new(bloodSugarTestContext, mock.Object);
+
+                BloodSugarTestResult bloodSugarTestResultUpdated = new()
+                {
+                    Id = 1,
+                    MealTime = DateTime.UtcNow.AddDays(15).Date,
+                    TestTime = DateTime.UtcNow.Date,
+                    Result = 205.4
+                };
+
+                NotFoundResult? notFoundResult =
+                    await bloodSugarController.Edit(1, bloodSugarTestResultUpdated) as NotFoundResult;
+
+                Assert.NotNull(notFoundResult);
+
+                bloodSugarTestContext.Database.EnsureDeleted();
+            }
+        }
+
+        [Fact]
         public async Task Is_Edit_DontUpdateInvalidModel()
         {
             var options = new DbContextOptionsBuilder<BloodSugarContext>()
@@ -230,6 +261,29 @@ namespace BloodSugarTrackingTest
             using (BloodSugarContext bloodSugarTestContext = new(options))
             {
                 Assert.Equal(0, bloodSugarTestContext.BloodSugarTestResults!.Count());
+
+                bloodSugarTestContext.Database.EnsureDeleted();
+            }
+        }
+
+        [Fact]
+        public async Task Is_Delete_DontUpdateIfDataNotFound()
+        {
+            var options = new DbContextOptionsBuilder<BloodSugarContext>()
+                .UseInMemoryDatabase("BloodSugarTestDb")
+                .Options;
+
+            using (BloodSugarContext bloodSugarTestContext = new(options))
+            {
+                Mock<IOptionsMonitor<BloodSugarOptions>> mock = new();
+                mock.Setup(s => s.CurrentValue)
+                    .Returns(new BloodSugarOptions() { FastingNormal = 100, TwoHoursNormal = 140 });
+                BloodSugarController bloodSugarController = new(bloodSugarTestContext, mock.Object);
+
+                NotFoundResult? notFoundResult =
+                    await bloodSugarController.DeleteConfirmed(1) as NotFoundResult;
+
+                Assert.NotNull(notFoundResult);
 
                 bloodSugarTestContext.Database.EnsureDeleted();
             }
