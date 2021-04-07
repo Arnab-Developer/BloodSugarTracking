@@ -148,6 +148,57 @@ namespace BloodSugarTrackingTest
         }
 
         [Fact]
+        public async Task Is_Edit_DontUpdateInvalidModel()
+        {
+            var options = new DbContextOptionsBuilder<BloodSugarContext>()
+                .UseInMemoryDatabase("BloodSugarTestDb")
+                .Options;
+
+            using (BloodSugarContext bloodSugarSetupContext = new(options))
+            {
+                BloodSugarTestResult bloodSugarTestResult = new()
+                {
+                    MealTime = DateTime.UtcNow.AddDays(10).Date,
+                    TestTime = DateTime.UtcNow.Date,
+                    Result = 100.6
+                };
+                bloodSugarSetupContext.BloodSugarTestResults!.Add(bloodSugarTestResult);
+                bloodSugarSetupContext.SaveChanges();
+            }
+
+            using (BloodSugarContext bloodSugarSetupContext1 = new(options))
+            {
+                Mock<IOptionsMonitor<BloodSugarOptions>> mock = new();
+                mock.Setup(s => s.CurrentValue)
+                    .Returns(new BloodSugarOptions() { FastingNormal = 100, TwoHoursNormal = 140 });
+                BloodSugarController bloodSugarController = new(bloodSugarSetupContext1, mock.Object);
+
+                BloodSugarTestResult bloodSugarTestResultUpdated = new()
+                {
+                    Id = 2,
+                    MealTime = DateTime.UtcNow.AddDays(15).Date,
+                    TestTime = DateTime.UtcNow.Date,
+                    Result = 205.4
+                };
+
+                await bloodSugarController.Edit(1, bloodSugarTestResultUpdated);
+            }
+
+            using (BloodSugarContext bloodSugarTestContext = new(options))
+            {
+                BloodSugarTestResult? bloodSugarTestResult = bloodSugarTestContext.BloodSugarTestResults!
+                    .SingleOrDefault(b => b.MealTime == DateTime.UtcNow.AddDays(10).Date);
+
+                Assert.NotNull(bloodSugarTestResult);
+                Assert.Equal(DateTime.UtcNow.AddDays(10).Date, bloodSugarTestResult!.MealTime);
+                Assert.Equal(DateTime.UtcNow.Date, bloodSugarTestResult.TestTime);
+                Assert.Equal(100.6, bloodSugarTestResult.Result);
+
+                bloodSugarTestContext.Database.EnsureDeleted();
+            }
+        }
+
+        [Fact]
         public async Task Is_Delete_WorkProperly()
         {
             var options = new DbContextOptionsBuilder<BloodSugarContext>()
