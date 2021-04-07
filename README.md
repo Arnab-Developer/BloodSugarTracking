@@ -3,7 +3,7 @@
 [![CI CD](https://github.com/Arnab-Developer/BloodSugarTracking/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/Arnab-Developer/BloodSugarTracking/actions/workflows/ci-cd.yml)
 ![Docker Image Version (latest by date)](https://img.shields.io/docker/v/45862391/bloodsugartracking)
 
-User can enter blood sugar data for fasting and PP and see the already added data in this app.
+User can add, edit and delete blood sugar data for fasting and PP and see the already added data in this app.
 
 Add blood sugar data
 
