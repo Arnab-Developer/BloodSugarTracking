@@ -120,6 +120,10 @@ namespace BloodSugarTracking.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var bloodSugarTestResult = await _bloodSugarContext.BloodSugarTestResults!.FindAsync(id);
+            if (bloodSugarTestResult == null)
+            {
+                return NotFound();
+            }
             _bloodSugarContext.BloodSugarTestResults!.Remove(bloodSugarTestResult);
             await _bloodSugarContext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
