@@ -70,6 +70,27 @@ This app is in a docker image and stored in dockerhub.
 
 https://hub.docker.com/r/45862391/bloodsugartracking
 
+## Hosting
+
+When a new release is created then this app is stored inside a docker image and push to 
+docker hub through CI CD. Hosting in Azure Web App is not done as a part of CI CD. That 
+needs to be done manually.
+
+- Create a new resource group in Azure.
+- In that resource group create the following resources
+  - App Service Plan for Linux
+  - Web App with docker hub image `45862391:[use the latest tag]`
+  - Create a SQL Server and database
+- Update the connection string with the database details in Web App configuration
+- In your local machine open terminal and navigate to the project folder and execute below 
+command. Copy the generated sql script and execute in the database.
+
+```
+dotnet ef migrations script
+```
+
+- Open the Web App URL in web browser and you should access the app.
+
 ## Contributing
 
 Read about contributing related things [here](https://github.com/Arnab-Developer/BloodSugarTracking/blob/main/CONTRIBUTING.md).
