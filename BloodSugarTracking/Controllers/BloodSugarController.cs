@@ -12,14 +12,14 @@ namespace BloodSugarTracking.Controllers
     public class BloodSugarController : Controller
     {
         private readonly BloodSugarContext _bloodSugarContext;
-        private readonly BloodSugarOptions _bloodSugarOptions;
+        private readonly IOptionsMonitor<BloodSugarOptions> _optionsAccessor;
 
         public BloodSugarController(
             BloodSugarContext bloodSugarContext,
             IOptionsMonitor<BloodSugarOptions> optionsAccessor)
         {
             _bloodSugarContext = bloodSugarContext;
-            _bloodSugarOptions = optionsAccessor.CurrentValue;
+            _optionsAccessor = optionsAccessor;
         }
 
         public IActionResult Index()
@@ -28,8 +28,8 @@ namespace BloodSugarTracking.Controllers
                 .OrderBy(bloodSugarTestResult => bloodSugarTestResult.TestTime)
                 .ToList();
 
-            ViewData["FastingNormal"] = _bloodSugarOptions.FastingNormal;
-            ViewData["TwoHoursNormal"] = _bloodSugarOptions.TwoHoursNormal;
+            ViewData["FastingNormal"] = _optionsAccessor.CurrentValue.FastingNormal;
+            ViewData["TwoHoursNormal"] = _optionsAccessor.CurrentValue.TwoHoursNormal;
 
             return View(bloodSugarTestResults);
         }
