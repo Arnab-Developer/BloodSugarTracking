@@ -47,12 +47,12 @@ jobs:
       run: dotnet publish BloodSugarTracking/BloodSugarTracking.csproj --configuration Release -o BloodSugarTracking/bin/publish
 
     - name: Create docker image
-      run: docker build -f BloodSugarTracking/Dockerfile -t docker.pkg.github.com/arnab-developer/bloodsugartracking/bloodsugartracking:1.1.0 .
+      run: docker build -f BloodSugarTracking/Dockerfile -t docker.pkg.github.com/arnab-developer/bloodsugartracking/bloodsugartracking:1.1.1 .
 
     - name: Push docker image
       run: |
         echo "${{ secrets.GITHUB_TOKEN }}" | docker login https://docker.pkg.github.com -u Arnab-Developer --password-stdin
-        docker push docker.pkg.github.com/arnab-developer/bloodsugartracking/bloodsugartracking:1.1.0
+        docker push docker.pkg.github.com/arnab-developer/bloodsugartracking/bloodsugartracking:1.1.1
 
   dockerhub-push:
     if: ${{ github.event_name == 'release' }}
@@ -76,9 +76,9 @@ jobs:
       run: dotnet publish BloodSugarTracking/BloodSugarTracking.csproj --configuration Release -o BloodSugarTracking/bin/publish
 
     - name: Create docker image
-      run: docker build -f BloodSugarTracking/Dockerfile -t 45862391/bloodsugartracking:1.1.0 .
+      run: docker build -f BloodSugarTracking/Dockerfile -t 45862391/bloodsugartracking:1.1.1 .
 
     - name: Push docker image
       run: |
         echo "${{ secrets.DOCKERHUB_PWD }}" | docker login -u 45862391 --password-stdin
-        docker push 45862391/bloodsugartracking:1.1.0
+        docker push 45862391/bloodsugartracking:1.1.1
