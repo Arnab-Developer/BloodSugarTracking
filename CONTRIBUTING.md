@@ -11,8 +11,9 @@ You need Visual Studio 2019, ASP.NET 5, EF and SQL Server 2016 to work on this p
 
 - If you find an existing issue then comment on that to let me know. Or if you want to work
 on something else then create a new issue to let me know the details.
-- If your issue is approved then fork the repo and create a new branch from `main`.
-- Clone the forked repo and set the upstream to the original repo `main` branch.
+- If your issue is approved then fork the repo.
+- Clone the forked repo and create a new branch from `main`.
+- Set the upstream to the original repo `main` branch.
 - Create the databases with the below script.
 
 ```sql
