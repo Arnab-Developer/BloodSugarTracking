@@ -89,4 +89,4 @@ command. Copy the generated sql script and execute in the database.
 dotnet ef migrations script
 ```
 
-- Open the Web App URL in web browser and you should access the app.
+Open the Web App URL in web browser and you should access the app.
