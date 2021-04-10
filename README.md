@@ -90,7 +90,3 @@ dotnet ef migrations script
 ```
 
 - Open the Web App URL in web browser and you should access the app.
-
-## Contributing
-
-Read about contributing related things [here](https://github.com/Arnab-Developer/BloodSugarTracking/blob/main/CONTRIBUTING.md).
