@@ -3,7 +3,19 @@
 [![CI CD](https://github.com/Arnab-Developer/BloodSugarTracking/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/Arnab-Developer/BloodSugarTracking/actions/workflows/ci-cd.yml)
 ![Docker Image Version (latest by date)](https://img.shields.io/docker/v/45862391/bloodsugartracking)
 
-User can add, edit and delete blood sugar data for fasting and PP and see the already added data in this app.
+This web app is to track blood sugar data for fasting and PP. In the first
+step, one or more users needs to be added, after that blood sugar data 
+(fasting and PP) for those users can be added. The app shows the time 
+difference between last meal and test time. If the data is higher than normal
+then it shows that data as red. The normal range of blood sugar is mentioned 
+in the appsettings.json file.
+
+```json
+{
+  "FastingNormal": 100,
+  "TwoHoursNormal": 140,
+}
+```
 
 Add blood sugar data
 
@@ -13,56 +25,10 @@ See existing blood sugar data
 
 ![image](https://user-images.githubusercontent.com/3396447/113703098-fc5d6600-96f7-11eb-9787-f8101220117f.png)
 
-It is an ASP.NET 5 mvc app with EF to enter and show blood sugar data for fasting and PP. 
+## Tech stack
 
-```c#
-// Show existing blood sugar data
-public IActionResult Index()
-{
-    var bloodSugarTestResults = _bloodSugarContext.BloodSugarTestResults
-        .OrderBy(bloodSugarTestResult => bloodSugarTestResult.TestTime);
-
-    ViewData["FastingNormal"] = _bloodSugarOptions.FastingNormal;
-    ViewData["TwoHoursNormal"] = _bloodSugarOptions.TwoHoursNormal;
-
-    return View(bloodSugarTestResults);
-}
-
-// Create new blood sugar data
-[HttpPost]
-public async Task<IActionResult> Create(BloodSugarTestResult bloodSugarTestResult)
-{
-    if (!ModelState.IsValid)
-    {
-        return View();
-    }
-    _bloodSugarContext.BloodSugarTestResults!.Add(bloodSugarTestResult);
-    await _bloodSugarContext.SaveChangesAsync();
-    return RedirectToAction(nameof(Index));
-}
-```
-
-If the blood sugar data is up from normal then it shows the data as red.
-
-```c#
-@if (bloodSugarTestResult.IsHigh((int)ViewData["FastingNormal"], (int)ViewData["TwoHoursNormal"]))
-{
-    <span style="color: red">@bloodSugarTestResult.Result</span>
-}
-else
-{
-    @bloodSugarTestResult.Result
-}
-```
-
-The normal range of blood sugar is mentioned in the appsettings.json file.
-
-```json
-{
-  "FastingNormal": 100,
-  "TwoHoursNormal": 140,
-}
-```
+It is an ASP.NET 5 MVC app with Entity Framework Core for data access with 
+SQL Server database. xUnit has been used for unit testing.
 
 ## Docker image
 
