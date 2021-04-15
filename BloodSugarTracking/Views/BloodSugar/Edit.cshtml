@@ -10,6 +10,15 @@
         <form asp-controller="BloodSugar" asp-action="Edit" method="post">
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
+                <label class="control-label">Users</label>
+                <select asp-for="UserId">
+                    @foreach (User user in (List<User>)ViewData["Users"])
+                    {
+                        <option value="@user.Id">@user.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
                 <label asp-for="MealTime" class="control-label"></label>
                 <input asp-for="MealTime" class="form-control" />
                 <span asp-validation-for="MealTime" class="text-danger"></span>

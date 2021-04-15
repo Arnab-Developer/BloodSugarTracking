@@ -74,6 +74,11 @@ namespace BloodSugarTracking.Controllers
             {
                 return NotFound();
             }
+
+            ViewData["Users"] = _bloodSugarContext.Users!
+                .OrderBy(u => u.FirstName)
+                .ToList();
+
             return View(bloodSugarTestResult);
         }
 
