@@ -63,7 +63,7 @@ reported to the community leaders responsible for enforcement at
 arnab.roy.chowdhury.developer@gmail.com.
 All complaints will be reviewed and investigated promptly and fairly. Violating 
 these terms may lead to a permanent ban within the repositories of 
-this account.
+my account.
 
 All community leaders are obligated to respect the privacy and security of the
 reporter of any incident.
