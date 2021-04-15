@@ -3,6 +3,7 @@ using BloodSugarTracking.Data;
 using BloodSugarTracking.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,8 +11,10 @@ using Xunit;
 
 namespace BloodSugarTrackingTest
 {
-    public class UserControllerTest
+    public class UserControllerTest : IDisposable
     {
+        private bool _disposedValue;
+
         [Fact]
         public void Is_Index_WorkProperly()
         {
@@ -45,8 +48,6 @@ namespace BloodSugarTrackingTest
                 Assert.Equal("Jon", users![0].FirstName);
                 Assert.Equal("Doe", users[0].LastName);
                 Assert.Equal("Jon Doe", users[0].Name);
-
-                bloodSugarTestContext.Database.EnsureDeleted();
             }
         }
 
@@ -77,8 +78,6 @@ namespace BloodSugarTrackingTest
                 Assert.Equal("Jon", user!.FirstName);
                 Assert.Equal("Doe", user.LastName);
                 Assert.Equal("Jon Doe", user.Name);
-
-                bloodSugarTestContext.Database.EnsureDeleted();
             }
         }
 
@@ -121,8 +120,6 @@ namespace BloodSugarTrackingTest
                 Assert.Equal("Jon1", user!.FirstName);
                 Assert.Equal("Doe1", user.LastName);
                 Assert.Equal("Jon1 Doe1", user.Name);
-
-                bloodSugarTestContext.Database.EnsureDeleted();
             }
         }
 
@@ -145,8 +142,6 @@ namespace BloodSugarTrackingTest
                 NotFoundResult? notFoundResult =
                     await userController.Edit(1, userUpdated) as NotFoundResult;
                 Assert.NotNull(notFoundResult);
-
-                bloodSugarTestContext.Database.EnsureDeleted();
             }
         }
 
@@ -189,8 +184,6 @@ namespace BloodSugarTrackingTest
                 Assert.Equal("Jon", user!.FirstName);
                 Assert.Equal("Doe", user.LastName);
                 Assert.Equal("Jon Doe", user.Name);
-
-                bloodSugarTestContext.Database.EnsureDeleted();
             }
         }
 
@@ -221,8 +214,6 @@ namespace BloodSugarTrackingTest
             using (BloodSugarContext bloodSugarTestContext = new(options))
             {
                 Assert.Equal(0, bloodSugarTestContext.Users!.Count());
-
-                bloodSugarTestContext.Database.EnsureDeleted();
             }
         }
 
@@ -239,9 +230,44 @@ namespace BloodSugarTrackingTest
                 NotFoundResult? notFoundResult =
                     await userController.DeleteConfirmed(1) as NotFoundResult;
                 Assert.NotNull(notFoundResult);
-
-                bloodSugarTestContext.Database.EnsureDeleted();
             }
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposedValue)
+            {
+                if (disposing)
+                {
+                    // TODO: dispose managed state (managed objects)
+                    var options = new DbContextOptionsBuilder<BloodSugarContext>()
+                        .UseInMemoryDatabase("UserTestDb")
+                        .Options;
+
+                    using (BloodSugarContext bloodSugarSetupContext = new(options))
+                    {
+                        bloodSugarSetupContext.Database.EnsureDeleted();
+                    }
+                }
+
+                // TODO: free unmanaged resources (unmanaged objects) and override finalizer
+                // TODO: set large fields to null
+                _disposedValue = true;
+            }
+        }
+
+        // // TODO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
+        // ~UserControllerTest()
+        // {
+        //     // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+        //     Dispose(disposing: false);
+        // }
+
+        void IDisposable.Dispose()
+        {
+            // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

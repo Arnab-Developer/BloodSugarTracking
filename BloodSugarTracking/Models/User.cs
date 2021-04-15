@@ -1,4 +1,6 @@
-﻿namespace BloodSugarTracking.Models
+﻿using System.Collections.Generic;
+
+namespace BloodSugarTracking.Models
 {
     public class User
     {
@@ -8,9 +10,10 @@
 
         public string LastName { get; set; }
 
+        public IList<BloodSugarTestResult>? BloodSugarTestResults { get; set; }
+
         public User()
         {
-            Id = 0;
             FirstName = string.Empty;
             LastName = string.Empty;
         }
