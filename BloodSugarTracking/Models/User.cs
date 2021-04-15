@@ -22,7 +22,25 @@ namespace BloodSugarTracking.Models
         {
             get
             {
-                return $"{FirstName} {LastName}";
+                string name = string.Empty;
+
+                if (!string.IsNullOrEmpty(FirstName) &&
+                    !string.IsNullOrEmpty(LastName))
+                {
+                    name = $"{FirstName} {LastName}";
+                }
+                else if (string.IsNullOrEmpty(FirstName) &&
+                    !string.IsNullOrEmpty(LastName))
+                {
+                    name = LastName;
+                }
+                else if (!string.IsNullOrEmpty(FirstName) &&
+                    string.IsNullOrEmpty(LastName))
+                {
+                    name = FirstName;
+                }
+
+                return name;
             }
         }
     }
