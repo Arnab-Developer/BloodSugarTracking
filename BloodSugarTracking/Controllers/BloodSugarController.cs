@@ -37,6 +37,9 @@ namespace BloodSugarTracking.Controllers
 
         public IActionResult Create()
         {
+            ViewData["Users"] = _bloodSugarContext.Users!
+                .OrderBy(u => u.FirstName)
+                .ToList();
             return View();
         }
 

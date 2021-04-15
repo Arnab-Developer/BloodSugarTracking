@@ -10,6 +10,7 @@
 <table class="table">
     <thead>
         <tr>
+            <th>@Html.DisplayNameFor(model => model.User!.Name)</th>
             <th>@Html.DisplayNameFor(model => model.MealTime)</th>
             <th>@Html.DisplayNameFor(model => model.TestTime)</th>
             <th>@Html.DisplayNameFor(model => model.Result)</th>
@@ -20,6 +21,7 @@
         @foreach (var bloodSugarTestResult in Model)
         {
             <tr>
+                <td>@bloodSugarTestResult.User!.Name</td>
                 <td>@bloodSugarTestResult.MealTime</td>
                 <td>
                     @bloodSugarTestResult.TestTime (@bloodSugarTestResult.TimeDurationAfterLastMeal)
