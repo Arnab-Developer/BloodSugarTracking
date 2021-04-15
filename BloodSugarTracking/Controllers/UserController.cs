@@ -90,36 +90,36 @@ namespace BloodSugarTracking.Controllers
             return View(user);
         }
 
-        //public async Task<IActionResult> Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-        //    var bloodSugarTestResult = await _bloodSugarContext.BloodSugarTestResults!
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    if (bloodSugarTestResult == null)
-        //    {
-        //        return NotFound();
-        //    }
+            User user = await _bloodSugarContext.Users!
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (user == null)
+            {
+                return NotFound();
+            }
 
-        //    return View(bloodSugarTestResult);
-        //}
+            return View(user);
+        }
 
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteConfirmed(int id)
-        //{
-        //    var bloodSugarTestResult = await _bloodSugarContext.BloodSugarTestResults!.FindAsync(id);
-        //    if (bloodSugarTestResult == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    _bloodSugarContext.BloodSugarTestResults!.Remove(bloodSugarTestResult);
-        //    await _bloodSugarContext.SaveChangesAsync();
-        //    return RedirectToAction(nameof(Index));
-        //}
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            User user = await _bloodSugarContext.Users!.FindAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            _bloodSugarContext.Users!.Remove(user);
+            await _bloodSugarContext.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
 
         private bool UserExists(int id)
         {
