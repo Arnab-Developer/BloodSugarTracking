@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace BloodSugarTracking.Models
 {
@@ -6,8 +7,10 @@ namespace BloodSugarTracking.Models
     {
         public int Id { get; set; }
 
+        [Display(Name = "First name")]
         public string FirstName { get; set; }
 
+        [Display(Name = "Last name")]
         public string LastName { get; set; }
 
         public IList<BloodSugarTestResult>? BloodSugarTestResults { get; set; }
@@ -18,6 +21,7 @@ namespace BloodSugarTracking.Models
             LastName = string.Empty;
         }
 
+        [Display(Name = "Full name")]
         public string Name
         {
             get
