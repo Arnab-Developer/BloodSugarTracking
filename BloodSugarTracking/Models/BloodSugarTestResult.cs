@@ -16,6 +16,19 @@ namespace BloodSugarTracking.Models
         [Display(Name = "Blood sugar test result")]
         public double Result { get; set; }
 
+        public int UserId { get; set; }
+
+        public User User { get; set; }
+
+        public BloodSugarTestResult()
+        {
+            MealTime = DateTime.MinValue;
+            TestTime = DateTime.MinValue;
+            Result = 0;
+            UserId = 0;
+            User = new User();
+        }
+
         public string TimeDurationAfterLastMeal
         {
             get
