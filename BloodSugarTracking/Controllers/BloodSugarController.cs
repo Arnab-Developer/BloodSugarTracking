@@ -78,7 +78,9 @@ namespace BloodSugarTracking.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(int id, BloodSugarTestResult bloodSugarTestResult)
         {
-            if (id != bloodSugarTestResult.Id)
+            if (id != bloodSugarTestResult.Id ||
+                _bloodSugarContext.Users!
+                    .FirstOrDefault(u => u.Id == bloodSugarTestResult.UserId) == null)
             {
                 return NotFound();
             }

@@ -300,6 +300,60 @@ namespace BloodSugarTrackingTest
         }
 
         [Fact]
+        public async Task Is_Edit_DontUpdateIfUserDataNotFound()
+        {
+            var options = new DbContextOptionsBuilder<BloodSugarContext>()
+                .UseInMemoryDatabase("BloodSugarTestDb")
+                .Options;
+
+            using (BloodSugarContext bloodSugarSetupContext = new(options))
+            {
+                User[] users = new[]
+                {
+                    new User() { FirstName = "Jon", LastName = "Doe" },
+                    new User() { FirstName = "Jon1", LastName = "Doe1" },
+                };
+                bloodSugarSetupContext.Users!.AddRange(users);
+                bloodSugarSetupContext.SaveChanges();
+            }
+
+            using (BloodSugarContext bloodSugarSetupContext = new(options))
+            {
+                BloodSugarTestResult bloodSugarTestResult = new()
+                {
+                    MealTime = DateTime.UtcNow.AddDays(10).Date,
+                    TestTime = DateTime.UtcNow.Date,
+                    Result = 100.6,
+                    User = bloodSugarSetupContext.Users!.First(u => u.Id == 1)
+                };
+                bloodSugarSetupContext.BloodSugarTestResults!.Add(bloodSugarTestResult);
+                bloodSugarSetupContext.SaveChanges();
+            }
+
+            using (BloodSugarContext bloodSugarSetupContext1 = new(options))
+            {
+                Mock<IOptionsMonitor<BloodSugarOptions>> mock = new();
+                mock.Setup(s => s.CurrentValue)
+                    .Returns(new BloodSugarOptions() { FastingNormal = 100, TwoHoursNormal = 140 });
+                BloodSugarController bloodSugarController = new(bloodSugarSetupContext1, mock.Object);
+
+                BloodSugarTestResult bloodSugarTestResultUpdated = new()
+                {
+                    Id = 1,
+                    MealTime = DateTime.UtcNow.AddDays(15).Date,
+                    TestTime = DateTime.UtcNow.Date,
+                    Result = 205.4,
+                    UserId = 5
+                };
+
+                NotFoundResult? notFoundResult =
+                    await bloodSugarController.Edit(1, bloodSugarTestResultUpdated) as NotFoundResult;
+
+                Assert.NotNull(notFoundResult);
+            }
+        }
+
+        [Fact]
         public async Task Is_Edit_DontUpdateInvalidModel()
         {
             var options = new DbContextOptionsBuilder<BloodSugarContext>()
