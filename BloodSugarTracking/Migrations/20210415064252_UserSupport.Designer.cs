@@ -4,14 +4,16 @@ using BloodSugarTracking.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BloodSugarTracking.Migrations
 {
     [DbContext(typeof(BloodSugarContext))]
-    partial class BloodSugarContextModelSnapshot : ModelSnapshot
+    [Migration("20210415064252_UserSupport")]
+    partial class UserSupport
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,7 +37,7 @@ namespace BloodSugarTracking.Migrations
                     b.Property<DateTime>("TestTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -68,15 +70,12 @@ namespace BloodSugarTracking.Migrations
             modelBuilder.Entity("BloodSugarTracking.Models.BloodSugarTestResult", b =>
                 {
                     b.HasOne("BloodSugarTracking.Models.User", "User")
-                        .WithMany("BloodSugarTestResults")
-                        .HasForeignKey("UserId");
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("BloodSugarTracking.Models.User", b =>
-                {
-                    b.Navigation("BloodSugarTestResults");
                 });
 #pragma warning restore 612, 618
         }

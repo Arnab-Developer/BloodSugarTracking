@@ -25,6 +25,7 @@ namespace BloodSugarTracking.Controllers
         public IActionResult Index()
         {
             var bloodSugarTestResults = _bloodSugarContext.BloodSugarTestResults!
+                .Include(bloodSugarTestResult => bloodSugarTestResult.User)
                 .OrderBy(bloodSugarTestResult => bloodSugarTestResult.TestTime)
                 .ToList();
 
@@ -36,6 +37,9 @@ namespace BloodSugarTracking.Controllers
 
         public IActionResult Create()
         {
+            ViewData["Users"] = _bloodSugarContext.Users!
+                .OrderBy(u => u.FirstName)
+                .ToList();
             return View();
         }
 
@@ -46,6 +50,13 @@ namespace BloodSugarTracking.Controllers
             {
                 return View();
             }
+            bloodSugarTestResult.User = _bloodSugarContext.Users!
+                .FirstOrDefault(u => u.Id == bloodSugarTestResult.UserId);
+            if (bloodSugarTestResult.User == null)
+            {
+                return NotFound();
+            }
+            bloodSugarTestResult.UserId = null;
             await _bloodSugarContext.BloodSugarTestResults!.AddAsync(bloodSugarTestResult);
             await _bloodSugarContext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -63,6 +74,11 @@ namespace BloodSugarTracking.Controllers
             {
                 return NotFound();
             }
+
+            ViewData["Users"] = _bloodSugarContext.Users!
+                .OrderBy(u => u.FirstName)
+                .ToList();
+
             return View(bloodSugarTestResult);
         }
 
@@ -70,7 +86,9 @@ namespace BloodSugarTracking.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(int id, BloodSugarTestResult bloodSugarTestResult)
         {
-            if (id != bloodSugarTestResult.Id)
+            if (id != bloodSugarTestResult.Id ||
+                _bloodSugarContext.Users!
+                    .FirstOrDefault(u => u.Id == bloodSugarTestResult.UserId) == null)
             {
                 return NotFound();
             }
