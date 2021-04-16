@@ -24,14 +24,14 @@ namespace BloodSugarTracking.Models
         {
             get
             {
-                var timeDurationAfterLastMeal = TestTime.Subtract(MealTime);
+                TimeSpan timeDurationAfterLastMeal = TestTime.Subtract(MealTime);
                 return $"{timeDurationAfterLastMeal.Hours} hour {timeDurationAfterLastMeal.Minutes} minute after last meal";
             }
         }
 
         public bool IsHigh(int fastingNormal, int twoHoursNormal)
         {
-            var timeDurationAfterLastMeal = TestTime.Subtract(MealTime);
+            TimeSpan timeDurationAfterLastMeal = TestTime.Subtract(MealTime);
             if (timeDurationAfterLastMeal.Hours >= 8 && Result >= fastingNormal)
             {
                 return true;
