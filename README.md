@@ -21,19 +21,19 @@ in the appsettings.json file.
 
 Home page
 
-![Home page](https://github.com/Arnab-Developer/BloodSugarTracking/blob/new-screenshot/Assets/HomePage.jpg)
+![Home page](https://github.com/Arnab-Developer/BloodSugarTracking/blob/main/Assets/HomePage.jpg)
 
 Users
 
-![Users](https://github.com/Arnab-Developer/BloodSugarTracking/blob/new-screenshot/Assets/Users.jpg)
+![Users](https://github.com/Arnab-Developer/BloodSugarTracking/blob/main/Assets/Users.jpg)
 
 Add blood sugar data
 
-![Add blood sugar data](https://github.com/Arnab-Developer/BloodSugarTracking/blob/new-screenshot/Assets/AddBloodSugar.jpg)
+![Add blood sugar data](https://github.com/Arnab-Developer/BloodSugarTracking/blob/main/Assets/AddBloodSugar.jpg)
 
 View blood sugar data
 
-![View blood sugar data](https://github.com/Arnab-Developer/BloodSugarTracking/blob/new-screenshot/Assets/BloodSugarData.jpg)
+![View blood sugar data](https://github.com/Arnab-Developer/BloodSugarTracking/blob/main/Assets/BloodSugarData.jpg)
 
 ## Tech stack
 
