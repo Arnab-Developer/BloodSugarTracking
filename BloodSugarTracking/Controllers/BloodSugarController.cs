@@ -4,6 +4,7 @@ using BloodSugarTracking.Options;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -24,10 +25,11 @@ namespace BloodSugarTracking.Controllers
 
         public IActionResult Index()
         {
-            var bloodSugarTestResults = _bloodSugarContext.BloodSugarTestResults!
-                .Include(bloodSugarTestResult => bloodSugarTestResult.User)
-                .OrderBy(bloodSugarTestResult => bloodSugarTestResult.TestTime)
-                .ToList();
+            IList<BloodSugarTestResult> bloodSugarTestResults =
+                _bloodSugarContext.BloodSugarTestResults!
+                    .Include(bloodSugarTestResult => bloodSugarTestResult.User)
+                    .OrderBy(bloodSugarTestResult => bloodSugarTestResult.TestTime)
+                    .ToList();
 
             ViewData["FastingNormal"] = _optionsAccessor.CurrentValue.FastingNormal;
             ViewData["TwoHoursNormal"] = _optionsAccessor.CurrentValue.TwoHoursNormal;
@@ -123,8 +125,10 @@ namespace BloodSugarTracking.Controllers
                 return NotFound();
             }
 
-            var bloodSugarTestResult = await _bloodSugarContext.BloodSugarTestResults!
-                .FirstOrDefaultAsync(m => m.Id == id);
+            BloodSugarTestResult bloodSugarTestResult =
+                await _bloodSugarContext.BloodSugarTestResults!
+                    .FirstOrDefaultAsync(m => m.Id == id);
+
             if (bloodSugarTestResult == null)
             {
                 return NotFound();
@@ -137,7 +141,9 @@ namespace BloodSugarTracking.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var bloodSugarTestResult = await _bloodSugarContext.BloodSugarTestResults!.FindAsync(id);
+            BloodSugarTestResult bloodSugarTestResult =
+                await _bloodSugarContext.BloodSugarTestResults!.FindAsync(id);
+
             if (bloodSugarTestResult == null)
             {
                 return NotFound();

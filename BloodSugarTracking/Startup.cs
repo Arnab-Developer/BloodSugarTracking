@@ -22,7 +22,7 @@ namespace BloodSugarTracking
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            var bloodSugarDbConnectionString = Configuration.GetConnectionString("BloodSugarDbConnectionString");
+            string bloodSugarDbConnectionString = Configuration.GetConnectionString("BloodSugarDbConnectionString");
             services.AddDbContext<BloodSugarContext>(option => option.UseSqlServer(bloodSugarDbConnectionString));
             services.Configure<BloodSugarOptions>(Configuration);
         }
