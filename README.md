@@ -17,13 +17,23 @@ in the appsettings.json file.
 }
 ```
 
+## Screenshots
+
+Home page
+
+![Home page](https://github.com/Arnab-Developer/BloodSugarTracking/blob/new-screenshot/Assets/HomePage.jpg)
+
+Users
+
+![Users](https://github.com/Arnab-Developer/BloodSugarTracking/blob/new-screenshot/Assets/Users.jpg)
+
 Add blood sugar data
 
-![image](https://user-images.githubusercontent.com/3396447/113702889-be604200-96f7-11eb-9753-2245c65f8f52.png)
+![Add blood sugar data](https://github.com/Arnab-Developer/BloodSugarTracking/blob/new-screenshot/Assets/AddBloodSugar.jpg)
 
-See existing blood sugar data
+View blood sugar data
 
-![image](https://user-images.githubusercontent.com/3396447/113703098-fc5d6600-96f7-11eb-9787-f8101220117f.png)
+![View blood sugar data](https://github.com/Arnab-Developer/BloodSugarTracking/blob/new-screenshot/Assets/BloodSugarData.jpg)
 
 ## Tech stack
 
