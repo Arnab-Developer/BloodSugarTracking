@@ -66,3 +66,12 @@ dotnet ef migrations script
 ```
 
 Open the Web App URL in web browser and you should access the app.
+
+## License
+
+[MIT License](https://github.com/Arnab-Developer/BloodSugarTracking/blob/main/LICENSE)
+
+## Contributing
+
+Please read [this](https://github.com/Arnab-Developer/BloodSugarTracking/blob/main/CONTRIBUTING.md) 
+for contribution related guidelines.
