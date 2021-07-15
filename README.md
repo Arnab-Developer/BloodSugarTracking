@@ -67,11 +67,39 @@ dotnet ef migrations script
 
 Open the Web App URL in web browser and you should access the app.
 
-## License
+## How to run
 
-[MIT License](https://github.com/Arnab-Developer/BloodSugarTracking/blob/main/LICENSE)
+You need Visual Studio 2019, ASP.NET 5, EF and SQL Server 2016 to work on this project locally.
 
-## Contributing
+Create the databases with the below script before run this app.
 
-Please read [this](https://github.com/Arnab-Developer/BloodSugarTracking/blob/main/CONTRIBUTING.md) 
-for contribution related guidelines.
+```sql
+USE [master]
+GO
+
+CREATE DATABASE [BloodSugarDb]
+ON PRIMARY
+( 
+    NAME = N'BloodSugarDb', 
+    FILENAME = N'[local path]\BloodSugarDb.mdf' , 
+    SIZE = 8192KB , 
+    MAXSIZE = UNLIMITED, 
+    FILEGROWTH = 65536KB 
+)
+LOG ON 
+( 
+    NAME = N'BloodSugarDb_log', 
+    FILENAME = N'[local path]\BloodSugarDb.ldf' , 
+    SIZE = 8192KB , 
+    MAXSIZE = 2048GB , 
+    FILEGROWTH = 65536KB 
+)
+GO
+```
+
+Open terminal and navigate to the project folder and execute below command. Copy the generated 
+sql script and execute in the database.
+
+```
+dotnet ef migrations script
+```
