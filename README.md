@@ -97,6 +97,8 @@ LOG ON
 GO
 ```
 
+Update the connection string in appsettings.json file.
+
 Open terminal and navigate to the project folder and execute below command. Copy the generated 
 sql script and execute in the database.
 
