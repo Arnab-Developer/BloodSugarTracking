@@ -69,8 +69,6 @@ Open the Web App URL in web browser and you should access the app.
 
 ## How to run
 
-You need Visual Studio 2019, ASP.NET 5, EF and SQL Server 2016 to work on this project locally.
-
 Create the databases with the below script before run this app.
 
 ```sql
