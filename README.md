@@ -103,3 +103,5 @@ sql script and execute in the database.
 ```
 dotnet ef migrations script
 ```
+
+Open teh solution in Visual Studio and press F5.
