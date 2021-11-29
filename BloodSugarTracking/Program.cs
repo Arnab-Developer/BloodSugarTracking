@@ -1,16 +1,36 @@
-namespace BloodSugarTracking;
+using BloodSugarTracking.Data;
+using BloodSugarTracking.Options;
+using Microsoft.EntityFrameworkCore;
 
-public class Program
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+builder.Services.AddControllersWithViews();
+
+string bloodSugarDbConnectionString = builder.Configuration.GetConnectionString("BloodSugarDbConnectionString");
+builder.Services.AddDbContext<BloodSugarContext>(option => option.UseSqlServer(bloodSugarDbConnectionString));
+
+builder.Services.Configure<BloodSugarOptions>(builder.Configuration);
+
+WebApplication app = builder.Build();
+
+if (app.Environment.IsDevelopment())
 {
-    public static void Main(string[] args)
-    {
-        CreateHostBuilder(args).Build().Run();
-    }
-
-    public static IHostBuilder CreateHostBuilder(string[] args) =>
-        Host.CreateDefaultBuilder(args)
-            .ConfigureWebHostDefaults(webBuilder =>
-            {
-                webBuilder.UseStartup<Startup>();
-            });
+    app.UseDeveloperExceptionPage();
 }
+else
+{
+    app.UseExceptionHandler("/Home/Error");
+}
+app.UseStaticFiles();
+
+app.UseRouting();
+
+app.UseAuthorization();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
+});
+
+app.Run();
