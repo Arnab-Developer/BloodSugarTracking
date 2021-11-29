@@ -32,7 +32,7 @@ jobs:
       run: dotnet publish BloodSugarTracking/BloodSugarTracking.csproj --configuration Release -o BloodSugarTracking/bin/publish
 
     - name: Create docker image
-      run: docker build -f BloodSugarTracking/Dockerfile -t docker.pkg.github.com/arnab-developer/bloodsugartracking/bloodsugartracking:2.0.0 .
+      run: docker build -f BloodSugarTracking/Dockerfile -t bloodsugartracking:2.0.0 .
 
   github-package-docker-push:
     if: ${{ github.event_name == 'push' }}
@@ -53,13 +53,13 @@ jobs:
       run: dotnet publish BloodSugarTracking/BloodSugarTracking.csproj --configuration Release -o BloodSugarTracking/bin/publish
 
     - name: Create docker image
-      run: docker build -f BloodSugarTracking/Dockerfile -t docker.pkg.github.com/arnab-developer/bloodsugartracking/bloodsugartracking:2.0.0 .
+      run: docker build -f BloodSugarTracking/Dockerfile -t ghcr.io/arnab-developer/bloodsugartracking/bloodsugartracking:2.0.0 .
 
     - name: Push docker image
       run: |
-        echo "${{ secrets.GITHUB_TOKEN }}" | docker login https://docker.pkg.github.com -u Arnab-Developer --password-stdin
-        docker push docker.pkg.github.com/arnab-developer/bloodsugartracking/bloodsugartracking:2.0.0
-        docker logout https://docker.pkg.github.com
+        echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u Arnab-Developer --password-stdin
+        docker push ghcr.io/arnab-developer/bloodsugartracking/bloodsugartracking:2.0.0
+        docker logout ghcr.io
 
   dockerhub-push:
     if: ${{ github.event_name == 'release' }}
