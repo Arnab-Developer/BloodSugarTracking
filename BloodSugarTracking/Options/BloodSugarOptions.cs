@@ -1,8 +1,7 @@
-﻿namespace BloodSugarTracking.Options
+﻿namespace BloodSugarTracking.Options;
+
+public class BloodSugarOptions
 {
-    public class BloodSugarOptions
-    {
-        public int FastingNormal { get; set; }
-        public int TwoHoursNormal { get; set; }
-    }
+    public int FastingNormal { get; set; }
+    public int TwoHoursNormal { get; set; }
 }

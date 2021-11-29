@@ -3,124 +3,123 @@ using BloodSugarTracking.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace BloodSugarTracking.Controllers
+namespace BloodSugarTracking.Controllers;
+
+public class UserController : Controller
 {
-    public class UserController : Controller
+    private readonly BloodSugarContext _bloodSugarContext;
+
+    public UserController(BloodSugarContext bloodSugarContext)
     {
-        private readonly BloodSugarContext _bloodSugarContext;
+        _bloodSugarContext = bloodSugarContext;
+    }
 
-        public UserController(BloodSugarContext bloodSugarContext)
-        {
-            _bloodSugarContext = bloodSugarContext;
-        }
+    public IActionResult Index()
+    {
+        IList<User> users = _bloodSugarContext.Users!
+            .OrderBy(u => u.FirstName)
+            .ToList();
 
-        public IActionResult Index()
-        {
-            IList<User> users = _bloodSugarContext.Users!
-                .OrderBy(u => u.FirstName)
-                .ToList();
+        return View(users);
+    }
 
-            return View(users);
-        }
+    public IActionResult Create()
+    {
+        return View();
+    }
 
-        public IActionResult Create()
+    [HttpPost]
+    public async Task<IActionResult> Create(User user)
+    {
+        if (!ModelState.IsValid)
         {
             return View();
         }
+        await _bloodSugarContext.Users!.AddAsync(user);
+        await _bloodSugarContext.SaveChangesAsync();
+        return RedirectToAction(nameof(Index));
+    }
 
-        [HttpPost]
-        public async Task<IActionResult> Create(User user)
+    public async Task<IActionResult> Edit(int? id)
+    {
+        if (id == null)
         {
-            if (!ModelState.IsValid)
+            return NotFound();
+        }
+
+        User? user = await _bloodSugarContext.Users!.FindAsync(id);
+        if (user == null)
+        {
+            return NotFound();
+        }
+        return View(user);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<ActionResult> Edit(int id, User user)
+    {
+        if (id != user.Id)
+        {
+            return NotFound();
+        }
+
+        if (ModelState.IsValid)
+        {
+            try
             {
-                return View();
+                _bloodSugarContext.Users!.Update(user);
+                await _bloodSugarContext.SaveChangesAsync();
             }
-            await _bloodSugarContext.Users!.AddAsync(user);
-            await _bloodSugarContext.SaveChangesAsync();
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!UserExists(user.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
             return RedirectToAction(nameof(Index));
         }
+        return View(user);
+    }
 
-        public async Task<IActionResult> Edit(int? id)
+    public async Task<IActionResult> Delete(int? id)
+    {
+        if (id == null)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            User? user = await _bloodSugarContext.Users!.FindAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-            return View(user);
+            return NotFound();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(int id, User user)
+        User? user = await _bloodSugarContext.Users!
+            .FirstOrDefaultAsync(m => m.Id == id);
+        if (user == null)
         {
-            if (id != user.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _bloodSugarContext.Users!.Update(user);
-                    await _bloodSugarContext.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!UserExists(user.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(user);
+            return NotFound();
         }
 
-        public async Task<IActionResult> Delete(int? id)
+        return View(user);
+    }
+
+    [HttpPost, ActionName("Delete")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteConfirmed(int id)
+    {
+        User? user = await _bloodSugarContext.Users!.FindAsync(id);
+        if (user == null)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            User? user = await _bloodSugarContext.Users!
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            return View(user);
+            return NotFound();
         }
+        _bloodSugarContext.Users!.Remove(user);
+        await _bloodSugarContext.SaveChangesAsync();
+        return RedirectToAction(nameof(Index));
+    }
 
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            User? user = await _bloodSugarContext.Users!.FindAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-            _bloodSugarContext.Users!.Remove(user);
-            await _bloodSugarContext.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool UserExists(int id)
-        {
-            return _bloodSugarContext.Users!.Any(e => e.Id == id);
-        }
+    private bool UserExists(int id)
+    {
+        return _bloodSugarContext.Users!.Any(e => e.Id == id);
     }
 }

@@ -1,81 +1,80 @@
 ﻿using BloodSugarTracking.Models;
 using Xunit;
 
-namespace BloodSugarTrackingTest
+namespace BloodSugarTrackingTest;
+
+public class BloodSugarTestResultTest
 {
-    public class BloodSugarTestResultTest
+    [Fact]
+    public void Can_TimeDurationAfterLastMeal_ReturnProperData()
     {
-        [Fact]
-        public void Can_TimeDurationAfterLastMeal_ReturnProperData()
+        BloodSugarTestResult bloodSugarTestResult = new()
         {
-            BloodSugarTestResult bloodSugarTestResult = new()
-            {
-                MealTime = DateTime.UtcNow.AddHours(-12),
-                TestTime = DateTime.UtcNow,
-                Result = 100.6
-            };
+            MealTime = DateTime.UtcNow.AddHours(-12),
+            TestTime = DateTime.UtcNow,
+            Result = 100.6
+        };
 
-            Assert.Equal("12 hour 0 minute after last meal", bloodSugarTestResult.TimeDurationAfterLastMeal);
-        }
+        Assert.Equal("12 hour 0 minute after last meal", bloodSugarTestResult.TimeDurationAfterLastMeal);
+    }
 
-        [Fact]
-        public void Can_IsHigh_ReturnProperDataForFastingTrue()
+    [Fact]
+    public void Can_IsHigh_ReturnProperDataForFastingTrue()
+    {
+        BloodSugarTestResult bloodSugarTestResult = new()
         {
-            BloodSugarTestResult bloodSugarTestResult = new()
-            {
-                MealTime = DateTime.UtcNow.AddHours(-9),
-                TestTime = DateTime.UtcNow,
-                Result = 110
-            };
+            MealTime = DateTime.UtcNow.AddHours(-9),
+            TestTime = DateTime.UtcNow,
+            Result = 110
+        };
 
-            bool isHigh = bloodSugarTestResult.IsHigh(100, 140);
+        bool isHigh = bloodSugarTestResult.IsHigh(100, 140);
 
-            Assert.True(isHigh);
-        }
+        Assert.True(isHigh);
+    }
 
-        [Fact]
-        public void Can_IsHigh_ReturnProperDataForFastingFalse()
+    [Fact]
+    public void Can_IsHigh_ReturnProperDataForFastingFalse()
+    {
+        BloodSugarTestResult bloodSugarTestResult = new()
         {
-            BloodSugarTestResult bloodSugarTestResult = new()
-            {
-                MealTime = DateTime.UtcNow.AddHours(-9),
-                TestTime = DateTime.UtcNow,
-                Result = 98
-            };
+            MealTime = DateTime.UtcNow.AddHours(-9),
+            TestTime = DateTime.UtcNow,
+            Result = 98
+        };
 
-            bool isHigh = bloodSugarTestResult.IsHigh(100, 140);
+        bool isHigh = bloodSugarTestResult.IsHigh(100, 140);
 
-            Assert.False(isHigh);
-        }
+        Assert.False(isHigh);
+    }
 
-        [Fact]
-        public void Can_IsHigh_ReturnProperDataForPPTrue()
+    [Fact]
+    public void Can_IsHigh_ReturnProperDataForPPTrue()
+    {
+        BloodSugarTestResult bloodSugarTestResult = new()
         {
-            BloodSugarTestResult bloodSugarTestResult = new()
-            {
-                MealTime = DateTime.UtcNow.AddHours(-2),
-                TestTime = DateTime.UtcNow,
-                Result = 155
-            };
+            MealTime = DateTime.UtcNow.AddHours(-2),
+            TestTime = DateTime.UtcNow,
+            Result = 155
+        };
 
-            bool isHigh = bloodSugarTestResult.IsHigh(100, 140);
+        bool isHigh = bloodSugarTestResult.IsHigh(100, 140);
 
-            Assert.True(isHigh);
-        }
+        Assert.True(isHigh);
+    }
 
-        [Fact]
-        public void Can_IsHigh_ReturnProperDataForPPFalse()
+    [Fact]
+    public void Can_IsHigh_ReturnProperDataForPPFalse()
+    {
+        BloodSugarTestResult bloodSugarTestResult = new()
         {
-            BloodSugarTestResult bloodSugarTestResult = new()
-            {
-                MealTime = DateTime.UtcNow.AddHours(-2),
-                TestTime = DateTime.UtcNow,
-                Result = 135
-            };
+            MealTime = DateTime.UtcNow.AddHours(-2),
+            TestTime = DateTime.UtcNow,
+            Result = 135
+        };
 
-            bool isHigh = bloodSugarTestResult.IsHigh(100, 140);
+        bool isHigh = bloodSugarTestResult.IsHigh(100, 140);
 
-            Assert.False(isHigh);
-        }
+        Assert.False(isHigh);
     }
 }
