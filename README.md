@@ -37,7 +37,7 @@ View blood sugar data
 
 ## Tech stack
 
-It is an ASP.NET 5 MVC app with Entity Framework Core for data access with 
+It is an ASP.NET 6 MVC app with Entity Framework for data access with 
 SQL Server database. xUnit has been used for unit testing.
 
 ## Docker image
