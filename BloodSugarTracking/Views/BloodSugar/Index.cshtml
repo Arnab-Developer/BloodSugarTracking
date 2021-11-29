@@ -17,29 +17,39 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var bloodSugarTestResult in Model)
+        @if (Model is not null)
         {
-            <tr>
-                <td>@bloodSugarTestResult.User!.Name</td>
-                <td>@bloodSugarTestResult.MealTime</td>
-                <td>
-                    @bloodSugarTestResult.TestTime (@bloodSugarTestResult.TimeDurationAfterLastMeal)
-                </td>
-                <td>
-                    @if (bloodSugarTestResult.IsHigh((int)ViewData["FastingNormal"], (int)ViewData["TwoHoursNormal"]))
-                    {
-                        <span style="color: red">@bloodSugarTestResult.Result</span>
-                    }
-                    else
-                    {
-                        @bloodSugarTestResult.Result
-                    }
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@bloodSugarTestResult.Id">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@bloodSugarTestResult.Id">Delete</a>
-                </td>
-            </tr>
+            @foreach (var bloodSugarTestResult in Model)
+            {
+                <tr>
+                    <td>@bloodSugarTestResult.User!.Name</td>
+                    <td>@bloodSugarTestResult.MealTime</td>
+                    <td>
+                        @bloodSugarTestResult.TestTime (@bloodSugarTestResult.TimeDurationAfterLastMeal)
+                    </td>
+                    <td>
+                        @{
+                            object? fastingNormal = ViewData["FastingNormal"];
+                            object? twoHoursNormal = ViewData["TwoHoursNormal"];
+                        }
+                        @if (fastingNormal is not null && twoHoursNormal is not null) 
+                        {
+                            @if (bloodSugarTestResult.IsHigh((int)fastingNormal, (int)twoHoursNormal))
+                            {
+                                <span style="color: red">@bloodSugarTestResult.Result</span>
+                            }
+                            else
+                            {
+                                @bloodSugarTestResult.Result
+                            }
+                        }
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@bloodSugarTestResult.Id">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@bloodSugarTestResult.Id">Delete</a>
+                    </td>
+                </tr>
+            }
         }
     </tbody>
 </table>
