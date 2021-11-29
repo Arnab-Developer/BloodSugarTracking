@@ -11,9 +11,15 @@
             <div class="form-group">
                 <label class="control-label">Users</label>
                 <select asp-for="UserId">
-                    @foreach (User user in (List<User>)ViewData["Users"])
+                    @{
+                        object? users = ViewData["Users"];
+                    }
+                    @if (users is not null)
                     {
-                        <option value="@user.Id">@user.Name</option>
+                        @foreach (User user in (List<User>)users)
+                        {
+                            <option value="@user.Id">@user.Name</option>
+                        }
                     }
                 </select>
             </div>
