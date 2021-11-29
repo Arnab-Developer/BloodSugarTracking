@@ -16,17 +16,20 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var user in Model)
+        @if (Model is not null)
         {
-            <tr>
-                <td>@user.FirstName</td>
-                <td>@user.LastName</td>
-                <td>@user.Name</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@user.Id">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@user.Id">Delete</a>
-                </td>
-            </tr>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.FirstName</td>
+                    <td>@user.LastName</td>
+                    <td>@user.Name</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@user.Id">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@user.Id">Delete</a>
+                    </td>
+                </tr>
+            }
         }
     </tbody>
 </table>
