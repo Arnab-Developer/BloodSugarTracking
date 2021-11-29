@@ -29,20 +29,22 @@ public class UserControllerTest : IDisposable
             bloodSugarSetupContext.SaveChanges();
         }
 
-        using BloodSugarContext bloodSugarTestContext = new(options);
-        UserController userController = new(bloodSugarTestContext);
+        using (BloodSugarContext bloodSugarTestContext = new(options))
+        {
+            UserController userController = new(bloodSugarTestContext);
 
-        ViewResult? viewResult = userController.Index() as ViewResult;
+            ViewResult? viewResult = userController.Index() as ViewResult;
 
-        Assert.NotNull(viewResult);
-        Assert.NotNull(viewResult!.Model);
+            Assert.NotNull(viewResult);
+            Assert.NotNull(viewResult!.Model);
 
-        IList<User>? users = viewResult.Model as IList<User>;
+            IList<User>? users = viewResult.Model as IList<User>;
 
-        Assert.NotNull(users);
-        Assert.Equal("Jon", users![0].FirstName);
-        Assert.Equal("Doe", users[0].LastName);
-        Assert.Equal("Jon Doe", users[0].Name);
+            Assert.NotNull(users);
+            Assert.Equal("Jon", users![0].FirstName);
+            Assert.Equal("Doe", users[0].LastName);
+            Assert.Equal("Jon Doe", users[0].Name);
+        }
     }
 
     [Fact]
@@ -214,11 +216,13 @@ public class UserControllerTest : IDisposable
             .UseInMemoryDatabase("UserTestDb")
             .Options;
 
-        using BloodSugarContext bloodSugarTestContext = new(options);
-        UserController userController = new(bloodSugarTestContext);
-        NotFoundResult? notFoundResult =
-            await userController.DeleteConfirmed(1) as NotFoundResult;
-        Assert.NotNull(notFoundResult);
+        using (BloodSugarContext bloodSugarTestContext = new(options))
+        {
+            UserController userController = new(bloodSugarTestContext);
+            NotFoundResult? notFoundResult =
+                await userController.DeleteConfirmed(1) as NotFoundResult;
+            Assert.NotNull(notFoundResult);
+        }
     }
 
     protected virtual void Dispose(bool disposing)
