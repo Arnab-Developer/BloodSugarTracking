@@ -1,5 +1,4 @@
 ﻿using BloodSugarTracking.Models;
-using System;
 using Xunit;
 
 namespace BloodSugarTrackingTest
