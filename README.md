@@ -95,7 +95,7 @@ LOG ON
 GO
 ```
 
-Update the connection string in appsettings.json file.
+Update the connection string in appsettings.json file if applicable.
 
 Open terminal and navigate to the project folder and execute below command. Copy the generated 
 sql script and execute in the database.
@@ -104,4 +104,4 @@ sql script and execute in the database.
 dotnet ef migrations script
 ```
 
-Open teh solution in Visual Studio and press F5.
+Open the solution in Visual Studio and press F5.
