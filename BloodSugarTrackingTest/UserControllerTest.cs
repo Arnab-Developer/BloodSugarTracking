@@ -29,22 +29,20 @@ namespace BloodSugarTrackingTest
                 bloodSugarSetupContext.SaveChanges();
             }
 
-            using (BloodSugarContext bloodSugarTestContext = new(options))
-            {
-                UserController userController = new(bloodSugarTestContext);
+            using BloodSugarContext bloodSugarTestContext = new(options);
+            UserController userController = new(bloodSugarTestContext);
 
-                ViewResult? viewResult = userController.Index() as ViewResult;
+            ViewResult? viewResult = userController.Index() as ViewResult;
 
-                Assert.NotNull(viewResult);
-                Assert.NotNull(viewResult!.Model);
+            Assert.NotNull(viewResult);
+            Assert.NotNull(viewResult!.Model);
 
-                IList<User>? users = viewResult.Model as IList<User>;
+            IList<User>? users = viewResult.Model as IList<User>;
 
-                Assert.NotNull(users);
-                Assert.Equal("Jon", users![0].FirstName);
-                Assert.Equal("Doe", users[0].LastName);
-                Assert.Equal("Jon Doe", users[0].Name);
-            }
+            Assert.NotNull(users);
+            Assert.Equal("Jon", users![0].FirstName);
+            Assert.Equal("Doe", users[0].LastName);
+            Assert.Equal("Jon Doe", users[0].Name);
         }
 
         [Fact]
@@ -126,19 +124,17 @@ namespace BloodSugarTrackingTest
                 .UseInMemoryDatabase("UserTestDb")
                 .Options;
 
-            using (BloodSugarContext bloodSugarTestContext = new(options))
+            using BloodSugarContext bloodSugarTestContext = new(options);
+            UserController userController = new(bloodSugarTestContext);
+            User userUpdated = new()
             {
-                UserController userController = new(bloodSugarTestContext);
-                User userUpdated = new()
-                {
-                    Id = 1,
-                    FirstName = "Jon1",
-                    LastName = "Doe1"
-                };
-                NotFoundResult? notFoundResult =
-                    await userController.Edit(1, userUpdated) as NotFoundResult;
-                Assert.NotNull(notFoundResult);
-            }
+                Id = 1,
+                FirstName = "Jon1",
+                LastName = "Doe1"
+            };
+            NotFoundResult? notFoundResult =
+                await userController.Edit(1, userUpdated) as NotFoundResult;
+            Assert.NotNull(notFoundResult);
         }
 
         [Fact]
@@ -207,10 +203,8 @@ namespace BloodSugarTrackingTest
                 await userController.DeleteConfirmed(1);
             }
 
-            using (BloodSugarContext bloodSugarTestContext = new(options))
-            {
-                Assert.Equal(0, bloodSugarTestContext.Users!.Count());
-            }
+            using BloodSugarContext bloodSugarTestContext = new(options);
+            Assert.Equal(0, bloodSugarTestContext.Users!.Count());
         }
 
         [Fact]
@@ -220,13 +214,11 @@ namespace BloodSugarTrackingTest
                 .UseInMemoryDatabase("UserTestDb")
                 .Options;
 
-            using (BloodSugarContext bloodSugarTestContext = new(options))
-            {
-                UserController userController = new(bloodSugarTestContext);
-                NotFoundResult? notFoundResult =
-                    await userController.DeleteConfirmed(1) as NotFoundResult;
-                Assert.NotNull(notFoundResult);
-            }
+            using BloodSugarContext bloodSugarTestContext = new(options);
+            UserController userController = new(bloodSugarTestContext);
+            NotFoundResult? notFoundResult =
+                await userController.DeleteConfirmed(1) as NotFoundResult;
+            Assert.NotNull(notFoundResult);
         }
 
         protected virtual void Dispose(bool disposing)
@@ -240,10 +232,8 @@ namespace BloodSugarTrackingTest
                         .UseInMemoryDatabase("UserTestDb")
                         .Options;
 
-                    using (BloodSugarContext bloodSugarSetupContext = new(options))
-                    {
-                        bloodSugarSetupContext.Database.EnsureDeleted();
-                    }
+                    using BloodSugarContext bloodSugarSetupContext = new(options);
+                    bloodSugarSetupContext.Database.EnsureDeleted();
                 }
 
                 // TODO: free unmanaged resources (unmanaged objects) and override finalizer

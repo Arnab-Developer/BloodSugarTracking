@@ -122,7 +122,7 @@ namespace BloodSugarTracking.Controllers
                 return NotFound();
             }
 
-            BloodSugarTestResult bloodSugarTestResult =
+            BloodSugarTestResult? bloodSugarTestResult =
                 await _bloodSugarContext.BloodSugarTestResults!
                     .FirstOrDefaultAsync(m => m.Id == id);
 
@@ -138,7 +138,7 @@ namespace BloodSugarTracking.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            BloodSugarTestResult bloodSugarTestResult =
+            BloodSugarTestResult? bloodSugarTestResult =
                 await _bloodSugarContext.BloodSugarTestResults!.FindAsync(id);
 
             if (bloodSugarTestResult == null)

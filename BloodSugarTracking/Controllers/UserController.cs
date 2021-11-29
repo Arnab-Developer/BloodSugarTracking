@@ -47,7 +47,7 @@ namespace BloodSugarTracking.Controllers
                 return NotFound();
             }
 
-            User user = await _bloodSugarContext.Users!.FindAsync(id);
+            User? user = await _bloodSugarContext.Users!.FindAsync(id);
             if (user == null)
             {
                 return NotFound();
@@ -94,7 +94,7 @@ namespace BloodSugarTracking.Controllers
                 return NotFound();
             }
 
-            User user = await _bloodSugarContext.Users!
+            User? user = await _bloodSugarContext.Users!
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (user == null)
             {
@@ -108,7 +108,7 @@ namespace BloodSugarTracking.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            User user = await _bloodSugarContext.Users!.FindAsync(id);
+            User? user = await _bloodSugarContext.Users!.FindAsync(id);
             if (user == null)
             {
                 return NotFound();
