@@ -1,10 +1,4 @@
-﻿using BloodSugarTracking.Data;
-using BloodSugarTracking.Models;
-using BloodSugarTracking.Options;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 
 namespace BloodSugarTracking.Controllers;
 

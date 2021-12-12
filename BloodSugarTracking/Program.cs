@@ -1,7 +1,4 @@
-using BloodSugarTracking.Data;
-using BloodSugarTracking.Options;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();

@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace BloodSugarTracking.Models;
+﻿namespace BloodSugarTracking.Models;
 
 public class User
 {

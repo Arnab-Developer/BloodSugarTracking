@@ -1,10 +1,3 @@
-using BloodSugarTracking.Controllers;
-using BloodSugarTracking.Data;
-using BloodSugarTracking.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Xunit;
-
 namespace BloodSugarTrackingTest;
 
 public class UserControllerTest : IDisposable

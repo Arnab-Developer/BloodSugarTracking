@@ -26,4 +26,13 @@
     <ProjectReference Include="..\BloodSugarTracking\BloodSugarTracking.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Using Include="BloodSugarTracking.Controllers" />
+    <Using Include="BloodSugarTracking.Models" />
+    <Using Include="BloodSugarTracking.Data" />
+    <Using Include="Microsoft.AspNetCore.Mvc" />
+    <Using Include="Microsoft.EntityFrameworkCore" />    
+    <Using Include="Xunit" />
+  </ItemGroup>
+  
 </Project>
