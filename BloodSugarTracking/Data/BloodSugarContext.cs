@@ -1,7 +1,4 @@
-﻿using BloodSugarTracking.Models;
-using Microsoft.EntityFrameworkCore;
-
-namespace BloodSugarTracking.Data;
+﻿namespace BloodSugarTracking.Data;
 
 public class BloodSugarContext : DbContext
 {

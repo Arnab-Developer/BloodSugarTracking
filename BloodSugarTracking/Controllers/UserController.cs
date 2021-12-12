@@ -1,10 +1,6 @@
-﻿using BloodSugarTracking.Data;
-using BloodSugarTracking.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿namespace BloodSugarTracking.Controllers;
 
-namespace BloodSugarTracking.Controllers;
-
+[Authorize]
 public class UserController : Controller
 {
     private readonly BloodSugarContext _bloodSugarContext;

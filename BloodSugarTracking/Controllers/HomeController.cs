@@ -1,6 +1,4 @@
-﻿using BloodSugarTracking.Models;
-using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 namespace BloodSugarTracking.Controllers;
 

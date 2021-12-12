@@ -1,7 +1,4 @@
-﻿using BloodSugarTracking.Models;
-using Xunit;
-
-namespace BloodSugarTrackingTest;
+﻿namespace BloodSugarTrackingTest;
 
 public class UserTest
 {

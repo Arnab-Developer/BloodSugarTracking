@@ -1,12 +1,6 @@
-using BloodSugarTracking.Controllers;
-using BloodSugarTracking.Data;
-using BloodSugarTracking.Models;
 using BloodSugarTracking.Options;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Moq;
-using Xunit;
 
 namespace BloodSugarTrackingTest;
 
