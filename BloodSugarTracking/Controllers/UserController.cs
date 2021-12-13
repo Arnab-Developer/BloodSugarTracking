@@ -4,10 +4,12 @@
 public class UserController : Controller
 {
     private readonly BloodSugarContext _bloodSugarContext;
+    private readonly ITenantProvider _tenantProvider;
 
-    public UserController(BloodSugarContext bloodSugarContext)
+    public UserController(BloodSugarContext bloodSugarContext, ITenantProvider tenantProvider)
     {
         _bloodSugarContext = bloodSugarContext;
+        _tenantProvider = tenantProvider;
     }
 
     public IActionResult Index()
@@ -31,6 +33,7 @@ public class UserController : Controller
         {
             return View();
         }
+        user.TenantId = await _tenantProvider.GetTenantId();
         await _bloodSugarContext.Users!.AddAsync(user);
         await _bloodSugarContext.SaveChangesAsync();
         return RedirectToAction(nameof(Index));

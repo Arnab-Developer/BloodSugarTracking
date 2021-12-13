@@ -13,9 +13,16 @@ public class BloodSugarTestResult
     [Display(Name = "Blood sugar test result")]
     public double Result { get; set; }
 
+    public string TenantId { get; set; }
+
     public int? UserId { get; set; }
 
     public User? User { get; set; }
+
+    public BloodSugarTestResult()
+    {
+        TenantId = string.Empty;
+    }
 
     public string TimeDurationAfterLastMeal
     {

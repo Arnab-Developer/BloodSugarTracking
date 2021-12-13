@@ -7,13 +7,16 @@ public class BloodSugarController : Controller
 {
     private readonly BloodSugarContext _bloodSugarContext;
     private readonly IOptionsMonitor<BloodSugarOptions> _optionsAccessor;
+    private readonly ITenantProvider _tenantProvider;
 
     public BloodSugarController(
         BloodSugarContext bloodSugarContext,
-        IOptionsMonitor<BloodSugarOptions> optionsAccessor)
+        IOptionsMonitor<BloodSugarOptions> optionsAccessor,
+        ITenantProvider tenantProvider)
     {
         _bloodSugarContext = bloodSugarContext;
         _optionsAccessor = optionsAccessor;
+        _tenantProvider = tenantProvider;
     }
 
     public IActionResult Index()
@@ -52,6 +55,7 @@ public class BloodSugarController : Controller
             return NotFound();
         }
         bloodSugarTestResult.UserId = null;
+        bloodSugarTestResult.TenantId = await _tenantProvider.GetTenantId();
         await _bloodSugarContext.BloodSugarTestResults!.AddAsync(bloodSugarTestResult);
         await _bloodSugarContext.SaveChangesAsync();
         return RedirectToAction(nameof(Index));

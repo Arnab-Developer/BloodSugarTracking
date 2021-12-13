@@ -10,12 +10,15 @@ public class User
     [Display(Name = "Last name")]
     public string LastName { get; set; }
 
+    public string TenantId { get; set; }
+
     public IList<BloodSugarTestResult>? BloodSugarTestResults { get; set; }
 
     public User()
     {
         FirstName = string.Empty;
         LastName = string.Empty;
+        TenantId = string.Empty;
     }
 
     [Display(Name = "Full name")]
