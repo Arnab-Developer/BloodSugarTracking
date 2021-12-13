@@ -1,7 +1,6 @@
-using Microsoft.AspNetCore.Identity;
-
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<ITenantProvider, TenantProvider>();
 
 string identityDbConnectionString = builder.Configuration.GetConnectionString("IdentityDbConnectionString");
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(identityDbConnectionString));
