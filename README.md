@@ -128,7 +128,7 @@ sql script and execute in the application database.
 dotnet ef migrations script -c BloodSugarContext
 ```
 
-Now execute below command and copy the generated sql script and execute in the identity database.
+- Now execute below command and copy the generated sql script and execute in the identity database.
 
 ```
 dotnet ef migrations script -c ApplicationDbContext
