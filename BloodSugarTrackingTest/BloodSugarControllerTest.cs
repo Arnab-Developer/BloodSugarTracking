@@ -1,6 +1,5 @@
 using BloodSugarTracking.Options;
 using Microsoft.Extensions.Options;
-using Moq;
 
 namespace BloodSugarTrackingTest;
 

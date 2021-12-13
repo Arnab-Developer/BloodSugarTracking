@@ -11,7 +11,10 @@ public class UserControllerTest : IDisposable
             .UseInMemoryDatabase("UserTestDb")
             .Options;
 
-        using (BloodSugarContext bloodSugarSetupContext = new(options))
+        Mock<ITenantProvider> iTenantProviderMock = new();
+        iTenantProviderMock.Setup(s => s.GetTenantId()).Returns(Task.FromResult("1"));
+
+        using (BloodSugarContext bloodSugarSetupContext = new(options, iTenantProviderMock.Object))
         {
             User user = new()
             {
@@ -22,9 +25,9 @@ public class UserControllerTest : IDisposable
             bloodSugarSetupContext.SaveChanges();
         }
 
-        using (BloodSugarContext bloodSugarTestContext = new(options))
+        using (BloodSugarContext bloodSugarTestContext = new(options, iTenantProviderMock.Object))
         {
-            UserController userController = new(bloodSugarTestContext);
+            UserController userController = new(bloodSugarTestContext, iTenantProviderMock.Object);
 
             ViewResult? viewResult = userController.Index() as ViewResult;
 
@@ -37,6 +40,7 @@ public class UserControllerTest : IDisposable
             Assert.Equal("Jon", users![0].FirstName);
             Assert.Equal("Doe", users[0].LastName);
             Assert.Equal("Jon Doe", users[0].Name);
+            Assert.Equal("1", users[0].TenantId);
         }
     }
 
@@ -47,9 +51,12 @@ public class UserControllerTest : IDisposable
             .UseInMemoryDatabase("UserTestDb")
             .Options;
 
-        using (BloodSugarContext bloodSugarSetupContext = new(options))
+        Mock<ITenantProvider> iTenantProviderMock = new();
+        iTenantProviderMock.Setup(s => s.GetTenantId()).Returns(Task.FromResult("1"));
+
+        using (BloodSugarContext bloodSugarSetupContext = new(options, iTenantProviderMock.Object))
         {
-            UserController userController = new(bloodSugarSetupContext);
+            UserController userController = new(bloodSugarSetupContext, iTenantProviderMock.Object);
             User user = new()
             {
                 FirstName = "Jon",
@@ -58,7 +65,7 @@ public class UserControllerTest : IDisposable
             await userController.Create(user);
         }
 
-        using (BloodSugarContext bloodSugarTestContext = new(options))
+        using (BloodSugarContext bloodSugarTestContext = new(options, iTenantProviderMock.Object))
         {
             User? user = bloodSugarTestContext.Users!
                 .SingleOrDefault(u => u.FirstName == "Jon");
@@ -67,6 +74,7 @@ public class UserControllerTest : IDisposable
             Assert.Equal("Jon", user!.FirstName);
             Assert.Equal("Doe", user.LastName);
             Assert.Equal("Jon Doe", user.Name);
+            Assert.Equal("1", user.TenantId);
         }
     }
 
@@ -77,7 +85,10 @@ public class UserControllerTest : IDisposable
             .UseInMemoryDatabase("UserTestDb")
             .Options;
 
-        using (BloodSugarContext bloodSugarSetupContext = new(options))
+        Mock<ITenantProvider> iTenantProviderMock = new();
+        iTenantProviderMock.Setup(s => s.GetTenantId()).Returns(Task.FromResult("1"));
+
+        using (BloodSugarContext bloodSugarSetupContext = new(options, iTenantProviderMock.Object))
         {
             User user = new()
             {
@@ -88,9 +99,9 @@ public class UserControllerTest : IDisposable
             bloodSugarSetupContext.SaveChanges();
         }
 
-        using (BloodSugarContext bloodSugarSetupContext1 = new(options))
+        using (BloodSugarContext bloodSugarSetupContext1 = new(options, iTenantProviderMock.Object))
         {
-            UserController userController = new(bloodSugarSetupContext1);
+            UserController userController = new(bloodSugarSetupContext1, iTenantProviderMock.Object);
             User user = new()
             {
                 Id = 1,
@@ -100,7 +111,7 @@ public class UserControllerTest : IDisposable
             await userController.Edit(1, user);
         }
 
-        using (BloodSugarContext bloodSugarTestContext = new(options))
+        using (BloodSugarContext bloodSugarTestContext = new(options, iTenantProviderMock.Object))
         {
             User? user = bloodSugarTestContext.Users!
                 .SingleOrDefault(u => u.FirstName == "Jon1");
@@ -109,6 +120,7 @@ public class UserControllerTest : IDisposable
             Assert.Equal("Jon1", user!.FirstName);
             Assert.Equal("Doe1", user.LastName);
             Assert.Equal("Jon1 Doe1", user.Name);
+            Assert.Equal("1", user.TenantId);
         }
     }
 
@@ -119,8 +131,11 @@ public class UserControllerTest : IDisposable
             .UseInMemoryDatabase("UserTestDb")
             .Options;
 
-        using BloodSugarContext bloodSugarTestContext = new(options);
-        UserController userController = new(bloodSugarTestContext);
+        Mock<ITenantProvider> iTenantProviderMock = new();
+        iTenantProviderMock.Setup(s => s.GetTenantId()).Returns(Task.FromResult("1"));
+
+        using BloodSugarContext bloodSugarTestContext = new(options, iTenantProviderMock.Object);
+        UserController userController = new(bloodSugarTestContext, iTenantProviderMock.Object);
         User userUpdated = new()
         {
             Id = 1,
@@ -139,7 +154,10 @@ public class UserControllerTest : IDisposable
             .UseInMemoryDatabase("UserTestDb")
             .Options;
 
-        using (BloodSugarContext bloodSugarSetupContext = new(options))
+        Mock<ITenantProvider> iTenantProviderMock = new();
+        iTenantProviderMock.Setup(s => s.GetTenantId()).Returns(Task.FromResult("1"));
+
+        using (BloodSugarContext bloodSugarSetupContext = new(options, iTenantProviderMock.Object))
         {
             User user = new()
             {
@@ -150,9 +168,9 @@ public class UserControllerTest : IDisposable
             bloodSugarSetupContext.SaveChanges();
         }
 
-        using (BloodSugarContext bloodSugarSetupContext1 = new(options))
+        using (BloodSugarContext bloodSugarSetupContext1 = new(options, iTenantProviderMock.Object))
         {
-            UserController userController = new(bloodSugarSetupContext1);
+            UserController userController = new(bloodSugarSetupContext1, iTenantProviderMock.Object);
             User user = new()
             {
                 Id = 2,
@@ -162,7 +180,7 @@ public class UserControllerTest : IDisposable
             await userController.Edit(1, user);
         }
 
-        using (BloodSugarContext bloodSugarTestContext = new(options))
+        using (BloodSugarContext bloodSugarTestContext = new(options, iTenantProviderMock.Object))
         {
             User? user = bloodSugarTestContext.Users!
                 .SingleOrDefault(u => u.FirstName == "Jon");
@@ -181,7 +199,10 @@ public class UserControllerTest : IDisposable
             .UseInMemoryDatabase("UserTestDb")
             .Options;
 
-        using (BloodSugarContext bloodSugarSetupContext = new(options))
+        Mock<ITenantProvider> iTenantProviderMock = new();
+        iTenantProviderMock.Setup(s => s.GetTenantId()).Returns(Task.FromResult("1"));
+
+        using (BloodSugarContext bloodSugarSetupContext = new(options, iTenantProviderMock.Object))
         {
             User user = new()
             {
@@ -192,13 +213,13 @@ public class UserControllerTest : IDisposable
             bloodSugarSetupContext.SaveChanges();
         }
 
-        using (BloodSugarContext bloodSugarSetupContext1 = new(options))
+        using (BloodSugarContext bloodSugarSetupContext1 = new(options, iTenantProviderMock.Object))
         {
-            UserController userController = new(bloodSugarSetupContext1);
+            UserController userController = new(bloodSugarSetupContext1, iTenantProviderMock.Object);
             await userController.DeleteConfirmed(1);
         }
 
-        using BloodSugarContext bloodSugarTestContext = new(options);
+        using BloodSugarContext bloodSugarTestContext = new(options, iTenantProviderMock.Object);
         Assert.Equal(0, bloodSugarTestContext.Users!.Count());
     }
 
@@ -209,9 +230,12 @@ public class UserControllerTest : IDisposable
             .UseInMemoryDatabase("UserTestDb")
             .Options;
 
-        using (BloodSugarContext bloodSugarTestContext = new(options))
+        Mock<ITenantProvider> iTenantProviderMock = new();
+        iTenantProviderMock.Setup(s => s.GetTenantId()).Returns(Task.FromResult("1"));
+
+        using (BloodSugarContext bloodSugarTestContext = new(options, iTenantProviderMock.Object))
         {
-            UserController userController = new(bloodSugarTestContext);
+            UserController userController = new(bloodSugarTestContext, iTenantProviderMock.Object);
             NotFoundResult? notFoundResult =
                 await userController.DeleteConfirmed(1) as NotFoundResult;
             Assert.NotNull(notFoundResult);
@@ -229,7 +253,10 @@ public class UserControllerTest : IDisposable
                     .UseInMemoryDatabase("UserTestDb")
                     .Options;
 
-                using BloodSugarContext bloodSugarSetupContext = new(options);
+                Mock<ITenantProvider> iTenantProviderMock = new();
+                iTenantProviderMock.Setup(s => s.GetTenantId()).Returns(Task.FromResult("1"));
+
+                using BloodSugarContext bloodSugarSetupContext = new(options, iTenantProviderMock.Object);
                 bloodSugarSetupContext.Database.EnsureDeleted();
             }
 
