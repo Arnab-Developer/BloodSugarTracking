@@ -19,7 +19,8 @@ public class UserControllerTest : IDisposable
             User user = new()
             {
                 FirstName = "Jon",
-                LastName = "Doe"
+                LastName = "Doe",
+                TenantId = "1"
             };
             bloodSugarSetupContext.Users!.Add(user);
             bloodSugarSetupContext.SaveChanges();
@@ -93,7 +94,8 @@ public class UserControllerTest : IDisposable
             User user = new()
             {
                 FirstName = "Jon",
-                LastName = "Doe"
+                LastName = "Doe",
+                TenantId = "1"
             };
             bloodSugarSetupContext.Users!.Add(user);
             bloodSugarSetupContext.SaveChanges();
@@ -106,7 +108,8 @@ public class UserControllerTest : IDisposable
             {
                 Id = 1,
                 FirstName = "Jon1",
-                LastName = "Doe1"
+                LastName = "Doe1",
+                TenantId = "1"
             };
             await userController.Edit(1, user);
         }
@@ -162,7 +165,8 @@ public class UserControllerTest : IDisposable
             User user = new()
             {
                 FirstName = "Jon",
-                LastName = "Doe"
+                LastName = "Doe",
+                TenantId = "1"
             };
             bloodSugarSetupContext.Users!.Add(user);
             bloodSugarSetupContext.SaveChanges();
@@ -175,7 +179,8 @@ public class UserControllerTest : IDisposable
             {
                 Id = 2,
                 FirstName = "Jon1",
-                LastName = "Doe1"
+                LastName = "Doe1",
+                TenantId = "1"
             };
             await userController.Edit(1, user);
         }
@@ -189,6 +194,7 @@ public class UserControllerTest : IDisposable
             Assert.Equal("Jon", user!.FirstName);
             Assert.Equal("Doe", user.LastName);
             Assert.Equal("Jon Doe", user.Name);
+            Assert.Equal("1", user.TenantId);
         }
     }
 
