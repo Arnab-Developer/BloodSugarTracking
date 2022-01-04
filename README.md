@@ -48,6 +48,7 @@ https://hub.docker.com/r/45862391/bloodsugartracking
 
 ## How to run from local machine
 
+- Clone the repo
 - Create two databases (one for the application and another for identity) with the below script before run this app.
 
 ```sql
@@ -118,17 +119,18 @@ Hosting in Azure Web App is not done as a part of GitHub action. That needs to b
 - Create a new resource group in Azure.
 - In that resource group create the following resources
   - App Service Plan for Linux
-  - Web App with docker hub image `45862391:[use the latest tag]`
+  - Web App with docker hub image `45862391/bloodsugartracking:[use the latest tag]`
   - Create two SQL Servers and databases (one for the application and another for identity)
 - Update the connection strings with the database details in Web App configuration
-- In your local machine open terminal and navigate to the project folder and execute below command. Copy the generated 
-sql script and execute in the application database.
+- Clone the repo in your local machine
+- Open terminal and navigate to the project folder and execute below command. Copy the generated 
+sql script and execute in the application database in Azure.
 
 ```
 dotnet ef migrations script -c BloodSugarContext
 ```
 
-- Now execute below command and copy the generated sql script and execute in the identity database.
+- Now execute below command and copy the generated sql script and execute in the identity database in Azure.
 
 ```
 dotnet ef migrations script -c ApplicationDbContext
