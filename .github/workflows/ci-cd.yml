@@ -34,11 +34,31 @@ jobs:
     - name: Create docker image
       run: docker build -f BloodSugarTracking/Dockerfile -t bloodsugartracking:3.5.0 .
 
+  codeql-analysis:    
+    name: CodeQL analysis
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v1
+        with:
+          languages: csharp
+        
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v1
+        
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v1
+
   github-package-docker-push:
     if: ${{ github.event_name == 'push' }}
     runs-on: ubuntu-latest
     name: GitHub package docker push
-    needs: build-test
+    needs: [build-test, codeql-analysis]
 
     steps:
     - name: Checkout
@@ -65,7 +85,7 @@ jobs:
     if: ${{ github.event_name == 'release' }}
     runs-on: ubuntu-latest
     name: Dockerhub push
-    needs: build-test
+    needs: [build-test, codeql-analysis]
     environment:
       name: Dockerhub
       url: https://hub.docker.com/r/45862391/bloodsugartracking
