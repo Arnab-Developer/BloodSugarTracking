@@ -78,11 +78,15 @@ jobs:
     - name: Create docker image
       run: docker build -f BloodSugarTracking/Dockerfile -t ghcr.io/arnab-developer/bloodsugartracking/bloodsugartracking:3.5.0 .
 
+    - name: GitHub Container Registry login
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
     - name: Push docker image
-      run: |
-        echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u Arnab-Developer --password-stdin
-        docker push ghcr.io/arnab-developer/bloodsugartracking/bloodsugartracking:3.5.0
-        docker logout ghcr.io
+      run: docker push ghcr.io/arnab-developer/bloodsugartracking/bloodsugartracking:3.5.0
 
   dockerhub-push:
     if: ${{ github.event_name == 'release' }}
