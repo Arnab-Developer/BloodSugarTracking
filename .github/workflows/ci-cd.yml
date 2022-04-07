@@ -93,7 +93,8 @@ jobs:
     if: ${{ github.event_name == 'release' }}
     runs-on: ubuntu-latest
     name: Dockerhub push
-    needs: [build-test, codeql-analysis]
+    #needs: [build-test, codeql-analysis]
+    needs: build-test
     environment:
       name: Dockerhub
       url: https://hub.docker.com/r/45862391/bloodsugartracking
