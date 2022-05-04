@@ -62,6 +62,8 @@ jobs:
     runs-on: ubuntu-latest
     name: GitHub package docker push
     needs: [build-test, codeql-analysis]
+    permissions:
+      packages: write
 
     steps:
     - name: Checkout
